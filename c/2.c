@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include <stdlib.h>
+void sort(int a[],int size){
+   int i,j;
+   for(i=0;i<size-1;++i){
+      for(j=i+1;j<size;++j){
+         if(a[j]<a[i]){
+            int temp=a[i];
+            a[i]=a[j];
+            a[j]=temp;
+         }
+      }
+   }
+}
+int main(){
+	int n,*arr1,*arr2,s1=0,s2=0;
+   int i,j,k=0;
+   //Input so n
+	scanf("%d",&n);
+	arr1 = (int*) malloc(n * sizeof(int));
+   arr2 = (int*) malloc(n * sizeof(int));
+   //Input 2 day~ so
+	for(i=0;i<n;++i){
+		scanf("%d",arr1+i);
+      s1+=*(arr1+i);
+	}
+	for(j=0;j<n;++j){
+		scanf("%d",arr2+i);
+      s2+=*(arr2+j);
+	}
+   if(s1!=s2){
+      printf("Khong");
+   }
+   //so sanh 2 day
+   else{
+      sort(arr1,n);
+      sort(arr2,n);
+      for(i=0;i<n;++i){
+         if(arr1[i]!=arr2[i]){
+            printf("Khong");
+            k++;
+         }
+      }
+   }
+   if(k==0){
+      printf("Co");
+   }
+   //Free memory 2 day
+	free(arr1);
+	free(arr2);
+}
