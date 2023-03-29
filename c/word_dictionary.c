@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include <ctype.h>
+#include<ctype.h>
 #include<time.h>
 
 #define TABLE_SIZE 1579727 // hash table size
@@ -50,6 +50,7 @@ void insert_position(DictionaryNode* dictnode, int line, int page){
     PositionNode *new_node = malloc(sizeof(PositionNode));
     new_node->line = line;
     new_node->page = page;
+    new_node->next = NULL;
 
     if(dictnode->positionList->last == NULL){
         dictnode->positionList->first = dictnode->positionList->last = new_node;
@@ -188,8 +189,8 @@ int main(){
             at_line = 1;
             at_page++;
         }
-        toLOWER(word);
         word = strtok(word, ",."); // get rid of . and ,
+        toLOWER(word);
         insert_word(ordered_node, dict, word, at_line, at_page);
         at_order++;
     }
