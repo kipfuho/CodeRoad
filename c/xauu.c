@@ -31,4 +31,5 @@ int main(){
         if(strcmp(DS[i],"QQQ\x0")==0) break;
         printf("%s\n",DS[i]);
     }
+    
 }

@@ -8,6 +8,7 @@
 int CURRENT_SIZE = 0; // current unique word in the dictionary
 // for aesthetic
 char table_bar[132] = "+---------------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+\n";
+char delim[22] = " 	\n.,'#[]()\"!?$&*-_;:";
 
 unsigned long djb2_hash(char* str) {
     unsigned long hash = 5381;
@@ -30,6 +31,12 @@ void MAKEUP(char* word, int len){
         word = strtok(word, ".,!?{}[]();:\"''-+=@#$^&*");
     }
 } // ?? not efficient
+
+void toLOWER(char* word){
+    for(int i = 0; i < strlen(word); i++){
+        word[i] = tolower(word[i]);
+    }
+}
 
 typedef struct _PositionNode{
     int line;
@@ -178,7 +185,7 @@ void print_dict(Dictionary* ordered_node, FILE* outp){
 int main(){
     time_t begin = clock();
 
-    char* infile = "c/largetext.txt";
+    char* infile = "c/text.txt";
     char* outfile = "c/out.txt";
     FILE* inp = fopen(infile, "r");
     FILE* outp = fopen(outfile, "w");
@@ -186,19 +193,23 @@ int main(){
     Dictionary* dict = make_dict();
     Dictionary* ordered_node = make_dict();
     int at_order = 1, at_line = 1, at_page = 1;
-    int len = 32; char* word = malloc(len);
+    int len = 1248; char* line = malloc(len);
 
-    while(fscanf(inp, "%s", word) == 1){ // check if fscanf get sth
-        if(at_order % 15 == 0){
-            at_line++;
+    while(fgets(line, len, inp) != NULL){ // check if fgets get sth
+        char* token = strtok(line, " \n,."); // split token
+        while(token != NULL){
+            if(at_order % 15 == 0){
+                at_line++;
+            }
+            if(at_line == 25){
+                at_line = 1;
+                at_page++;
+            }
+            toLOWER(token);
+            insert_word(ordered_node, dict, token, at_line, at_page);
+            token = strtok(NULL, " \n,.");
+            at_order++;
         }
-        if(at_line == 25){
-            at_line = 1;
-            at_page++;
-        }
-        MAKEUP(word, strlen(word));
-        insert_word(ordered_node, dict, word, at_line, at_page);
-        at_order++;
     }
     
     sort_dict(ordered_node);
@@ -211,5 +222,5 @@ int main(){
     
     time_t end = clock();
     double time_spent = (double) (end - begin) / CLOCKS_PER_SEC;
-    printf("\nTime Execution: %.6lf s", time_spent);
+    printf("Time Execution: %.6lf s", time_spent);
 }
