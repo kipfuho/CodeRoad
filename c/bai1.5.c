@@ -1,3 +1,8 @@
+// Nguyễn Đình Út Biu - 20215317
+/*
+Bài tập 1.5. Viết hàm trả về con trỏ trỏ tới giá trị lớn nhất của một mảng các số double. Nếu mảng rỗng hãy trả về NULL.
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -22,6 +27,7 @@ double* maximum(double* a, int size){
 }
 
 int main(){
+    printf("Nguyen Dinh Ut Biu - 20215317\n");
     // Khai báo mảng số thực
     int size;
     printf("Nhap so phan tu cua mang: ");

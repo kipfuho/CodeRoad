@@ -6,16 +6,16 @@ public class Student {
         this.name = name;
         this.year = year;
     }
-    public String get_name(){
+    public String getName(){
         return name;
     }
-    public int get_year(){
+    public int getYear(){
         return year;
     }
-    public void set_name(String name){
+    public void setName(String name){
         this.name = name;
     }
-    public void set_year(int year){
+    public void setYear(int year){
         this.year = year;
     }
 }

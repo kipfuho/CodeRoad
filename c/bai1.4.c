@@ -1,3 +1,8 @@
+// Nguyễn Đình Út Biu - 20215317
+/*
+Bài tập 1.4. Viết hàm countEven(int*, int) nhận một mảng số nguyên và kích thước của mảng, trả về số lượng số chẵn trong mảng???
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -11,6 +16,7 @@ int counteven(int* arr, int size){
 }
 
 int main(){
+    printf("Nguyen Dinh Ut Biu - 20215317");
     int size;
     // Nhập số phần tử của mảng
     printf("Nhap so phan tu cua mang: ");

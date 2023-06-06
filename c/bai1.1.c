@@ -1,5 +1,14 @@
+// Nguyễn Đình Út Biu - 20215317
+/*
+Bài 1.1. Viết một chương trình C nhập vào 3 số nguyên. 
+Thiết lập một con trỏ để lần lượt trỏ tới từng số nguyên 
+và hiển thị kết quả giá trị tham chiếu ngược của con trỏ.
+*/
+
 # include <stdio.h>
 int main(){
+    printf("Nguyen Dinh Ut Biu - 20215317\n");
+
     int x, y, z;
     
     int* ptr;

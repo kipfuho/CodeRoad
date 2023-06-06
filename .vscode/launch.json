@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Test",
+      "request": "launch",
+      "mainClass": "javalearning.test.Test",
+      "projectName": "CodeRoad_1a94fdd6"
+    },
+    {
+      "type": "java",
+      "name": "Test$Test",
+      "request": "launch",
+      "mainClass": "javalearning.test.Test$Test",
+      "projectName": "CodeRoad_1a94fdd6"
+    },
+    {
+      "type": "java",
+      "name": "FirstDialog",
+      "request": "launch",
+      "mainClass": "javalearning.FirstDialog",
+      "projectName": "CodeRoad_1a94fdd6"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/ctcak/.vscode/CodeRoad/c++",
+      "program": "c:/Users/ctcak/.vscode/CodeRoad/c++/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}

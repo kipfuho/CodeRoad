@@ -1,43 +1,75 @@
+// Nguyễn Đình Út Biu - 20215317
+/*
+Bài tập 1.7. Viết chương trình nhập vào một ma trận 2 chiều kích thước m*n với m và n nhập từ bàn phím. Sau đó đưa ra tổng các phần tử chẵn của ma trận đó.
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 
-int main(){
-    // khai báo các biến, evenSum là tổng các số chẵn cần tìm
-    int m,n, evenSum = 0;
-    printf("Enter m, n = ");
-    scanf("%d %d", &m, &n);
-    // Khai báo và cấp phát bộ nhớ cho ma trận mxn
-    int **matrix;
-    matrix =(int**) malloc(m*sizeof(int*));
+void allocate_mem(int ***mt, int m, int n){
+    //#Allocate memory for the matrix
+    
+    *mt = (int **) malloc(m * sizeof(int *));
     for(int i = 0; i < m; i++){
-        matrix[i] = (int*) malloc(n*sizeof(int));
+        (*mt)[i] = (int *) malloc(n * sizeof(int));
     }
-    // nhập phần tử cho ma trận
+}
+
+void input(int **mt, int m, int n){
+    //#Input elements of the matrix
+    
     for(int i = 0; i < m; i++){
         for(int j = 0; j < n; j++){
             printf("mt[%d][%d] = ", i, j);
-            scanf("%d", &matrix[i][j]);
-            if(matrix[i][j] % 2 == 0){
-                evenSum += matrix[i][j];
+            scanf("%d", &mt[i][j]);
+        }
+    }
+}
+
+void output(int **mt, int m, int n){
+    //# Print all elements of the matrix
+    
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            printf("%d ", mt[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int process(int **mt, int m, int n){
+    int tong = 0;
+    //# Calculate the sum of all even elements in the matrix
+    
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            if(mt[i][j] % 2 == 0){
+                tong += mt[i][j];
             }
         }
     }
     
-    // In ma trận theo các hàng
-    for(int i = 0; i < m; i++){
-        for(int j = 0; j < n; j++){
-            printf("%d ", matrix[i][j]);
-        }
-        printf("\n");
-    }
+    return tong;
+}
 
-    // in tổng các số chẵn trong ma trận
-    printf("The sum of all even elements is %d", evenSum);
-
-    // giải phóng ma trận
+void free_mem(int **mt, int m, int n){
+    //# Free memory
+    
     for(int i = 0; i < m; i++){
-        free(matrix[i]);
+        free(mt[i]);
     }
-    free(matrix);
+    free(mt);
+}
+
+int main(){
+    printf("Nguyen Dinh Ut Biu - 20215317\n");
+    int m, n, **mt;
+    printf("Enter m, n = ");
+    scanf("%d%d", &m, &n);
+    allocate_mem(&mt, m, n);
+    input(mt, m, n);
+    output(mt, m, n);
+    printf("The sum of all even elements is %d", process(mt, m, n));
+    free_mem(mt, m, n);
     return 0;
 }

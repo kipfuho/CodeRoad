@@ -1,6 +1,13 @@
+// Nguyễn Đình Út Biu - 20215317
+/*
+Bài tập 1.3. Viết chương trình yêu cầu nhập giá trị cho 3 biến số nguyên x, y, z kiểu int. Sau đó sử dụng duy nhất một con trỏ để cộng giá trị của mỗi biến thêm 100.
+*/
+
+
 #include <stdio.h>
 
 int main() {
+    printf("Nguyen Dinh Ut Biu - 20215317");
 
     int x, y, z;
 

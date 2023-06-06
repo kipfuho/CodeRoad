@@ -1,7 +1,13 @@
+// Nguyễn Đình Út Biu - 20215317
+/*
+Bài tập 1.7. Viết chương trình nhập vào một mảng các số nguyên với số lượng các phần tử nhập từ bàn phím. Sau đó sắp xếp mảng theo thứ tự tăng dần. Hiển thị danh sách mảng trước và sau khi sắp xếp.
+Yêu cầu chỉ sử dụng con trỏ để truy cập mảng, không truy cập theo index mảng.
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 
-// Hàm sắp xếp dùng sắp xếp chọn
+// Hàm sắp xếp dùng thuật toán sắp xếp chọn
 void sortArr(int* arr, int size){
     for(int i = 0; i < size - 1; i++){
         int index = i;
@@ -19,6 +25,7 @@ void sortArr(int* arr, int size){
 }
 
 int main(){
+    printf("Nguyen Dinh Ut Biu - 20215317");
     // Khai báo mảng
     int size, *arr;
     printf("Enter the number of elements: ");

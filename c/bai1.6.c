@@ -1,3 +1,8 @@
+// Nguyễn Đình Út Biu - 20215317
+/*
+Bài tập 1.6. Viết hàm đảo ngược một mảng các số nguyên theo hai cách: dùng chỉ số và dùng con trỏ.
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -32,6 +37,7 @@ void ptr_reversearray(int *arr, int size){
 }
 
 int main(){
+    printf("Nguyen Dinh Ut Biu - 20215317\n");
     // Mảng 1 khai báo bình thường
     int size1;
     printf("Nhap so phan tu cho mang 1: ");
