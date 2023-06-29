@@ -4,6 +4,7 @@
 #include<ctype.h>
 #include<time.h>
 
+// change you directory you want for your input and output file
 char* INFILE = "C:/Users/ctcak/Downloads/TestFile.txt";
 char* OUTFILE = "C:/Users/ctcak/Downloads/out.txt";
 
