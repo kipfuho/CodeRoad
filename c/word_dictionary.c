@@ -4,6 +4,9 @@
 #include<ctype.h>
 #include<time.h>
 
+char* INFILE = "C:/Users/ctcak/Downloads/TestFile.txt";
+char* OUTFILE = "C:/Users/ctcak/Downloads/out.txt";
+
 #define TABLE_SIZE 1579727 // hash table size
 int CURRENT_SIZE = 0; // current unique word in the dictionary
 // for aesthetic
@@ -171,8 +174,8 @@ void print_dict(Dictionary* ordered_node, FILE* outp){
 int main(){
     time_t begin = clock();
 
-    char* infile = "c/text.txt";
-    char* outfile = "c/out.txt";
+    char* infile = INFILE;
+    char* outfile = OUTFILE;
     FILE* inp = fopen(infile, "r");
     FILE* outp = fopen(outfile, "w");
     
