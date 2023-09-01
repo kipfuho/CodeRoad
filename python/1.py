@@ -1,27 +1,13 @@
-def print_rangoli(size):
-    width=size*4-3
-    s=''
-    for i in range(1,size+1):
-        for j in range(0,i):
-            s+=chr(96+size-j)
-            if len(s)<width:
-                s+='-'
-        for k in range(i-1,0,-1):
-            s+=chr(97+size-k)
-            if len(s)<width:
-                s+='-'
-        print(s.center(width,'-'))
-        s=''
-    for i in range(size-1,0,-1):
-        for j in range(0,i):
-            s+=chr(96+size-j)
-            if len(s)<width:
-                s+='-'
-        for k in range(i-1,0,-1):
-            s+=chr(97+size-k)
-            if len(s)<width:
-                s+='-'
-        print(s.center(width,'-'))
-        s=''
-
-print_rangoli(5)
+n, m = map(int, input().split())
+s = input()
+for _ in range(m):
+    l, r = map(int, input().split())
+    max = 0
+    sum = 0
+    for c in s:
+        if c == '+':
+            sum++
+        else:
+            sum--
+        max = max(max, abs(sum))
+    print(max + 1)
