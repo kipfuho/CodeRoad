@@ -1,0 +1,154 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.dam{
+    font-weight: bold !important;
+}
+img{
+    width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+.f20{
+    font-size: 20px;
+}
+.f18{
+    font-size: 18px;
+}
+.white{
+    color: white;
+}
+body{
+    width: 1000px;
+    margin: auto;
+}
+
+.title{
+    text-align: center;
+}
+nav{
+    background-color: pink;
+    margin-bottom: 20px;
+}
+nav ul{
+    display: flex;
+    list-style: none;
+    
+}
+nav ul li{
+    margin: 10px 0;
+    padding: 0 10px;
+    border-right: 1px solid white;
+    
+    
+}
+nav ul li:first-child , nav ul li:last-child{
+    border: none;
+}
+nav ul li a{
+    color: white;
+    font-size: 18px;
+}
+
+.main-news{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.main-news .chinh{
+    display: flex;
+    flex-direction: column;
+    width: 33.333%;
+    margin-right: 20px;
+}
+.item-main:first-child{
+    margin-bottom: 10px;
+}
+.phu{
+    width: 33.333%;
+}
+.main-news .phu{
+    margin-right: 20px;
+}
+.phu >ul{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.phu > ul > li{
+    padding:  10px 0;
+    border-top: 2px solid #ccc;
+}
+
+.star{
+    background-color: pink;
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+.star > p{
+    margin: 20px;
+    border-left: 2px solid white;
+    padding-left: 10px;
+    margin-top: 10;
+}
+.star-news{
+    display: flex;
+    justify-content: space-around;
+}
+
+.star-new-item{
+    width: 33.3333%;
+    margin-left: 20px;
+}
+
+.star-new-item:last-child{
+    margin-right: 20px;
+}
+.sub-news{
+    background-color: orange !important;
+    padding-top: 10px;
+    margin-top: 20px;
+}
+.sub-news >p{
+    
+    border-left: 2px solid white;
+    padding-left: 10px;
+    margin-left: 20px;
+}
+.sub-new-content{
+    display: flex;
+}
+.main-content{
+    width: 50%;
+    padding: 20px;
+}
+.main-content > img{
+   
+}
+.sub-content{
+    padding: 20px;
+}
+.sub1{
+    display: flex;
+}
+.sub1 img{
+    width: 50%;
+    padding-right: 20px;
+}
+
+footer{
+    margin: 20px 0;
+    background-color: pink;
+    text-align: center;
+    line-height: 30px;
+    width: 100%;
+}
