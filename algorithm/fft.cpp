@@ -1,9 +1,6 @@
 // Fast Fourier Transformation
 
-#include <iostream>
-#include <cmath>
-#include <complex>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 

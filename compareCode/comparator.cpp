@@ -2,7 +2,7 @@
 using namespace std;
 
 int main(){
-    for(int iTest = 1; iTest <= 100; iTest++){
+    for(int iTest = 1; iTest <= 1000; iTest++){
     	char tmp[100];
     	sprintf(tmp, "%d", iTest);
     	string seed(tmp);

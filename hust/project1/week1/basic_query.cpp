@@ -39,8 +39,7 @@ Output
 
 using namespace std;
 
-int main() 
-{ 
+int main(){ 
     int n; cin >> n;
     vector<int> arr, tree(2e4);
     int maxArr = -1000, minArr = 1000, sum = 0;

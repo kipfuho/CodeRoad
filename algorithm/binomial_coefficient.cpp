@@ -36,6 +36,5 @@ int main() {
         fact[i] = (long long) fact[i-1] * i % MOD;
     }
 
-    cout << choose(4, 2, MOD) << '\n';
     cout << choose(1e6, 1e3, MOD) << '\n';
 }

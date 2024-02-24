@@ -31,8 +31,7 @@ INCORRECT
 
 using namespace std;
 
-int main() 
-{
+int main(){
     string s;
     cin >> s;
     if(s.size() != 8){
@@ -56,4 +55,5 @@ int main()
         return 0;
     }
     cout << hours*3600 + minutes*60 + seconds;
+    return 0;
 }

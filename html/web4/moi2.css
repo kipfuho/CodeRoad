@@ -1,0 +1,161 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Arial", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+.wrapper {
+    width: 1500px;
+    margin: auto;
+    box-shadow: 0;
+    margin-top: 26px;
+    padding-bottom: 24px;
+    border-width: 10px;
+}
+
+.flex{
+    display: flex;
+}
+
+.header {
+    border: 1px solid white;
+}
+.main-news{
+    width: 100%;
+}
+.container {
+    border-left: 1px solid #4d4d4d;
+    border-right: 1px solid #4d4d4d;
+    box-sizing: border-box;
+    padding: 0 70px;
+    padding-top: 20px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.khung {
+    /* Thiết lập chiều cao của phần khung */
+    height: 180px; /* Điều chỉnh chiều cao theo ý muốn */
+    border-bottom: 0px solid black;
+    margin-bottom: 10px; /* Khoảng cách giữa các phần khung */
+    clear: both;
+}
+.time {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Arial", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #888;
+    justify-content: flex-start;
+    margin-left: -40px;
+}
+
+.khung img {
+    height: 144px;
+    width: 216px;
+    margin-left: 400px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.ti-control-play{
+    color: white;
+    background-color:rgb(26, 121, 0); 
+    border-radius: 50%;
+    padding: 8px;
+    margin-right: 5px;
+}
+.news-title {
+    font-size: 18px;
+    margin: 5px 0;
+    margin-top: 0;
+    border-top: 100px;
+    display: inline-block; /* Hiển thị nội dung ngang hàng với hình ảnh */
+}
+.news-info {
+    max-width: 400px;
+    margin: 10px 0;
+    padding-bottom: 50px;
+    margin-top: 50px;
+    margin: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color:#292d32;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 50px;
+    margin-left: -50px; /* Điều chỉnh khoảng cách giữa hình ảnh và nội dung */
+    margin-top: -150px; /* Đẩy nội dung lên trên */
+    border: 1px solid white; /* Thêm đường viền */
+    padding: 10px; /* Thêm padding để tạo khoảng cách với đường viền */
+}
+.news-more{
+    margin: 10px 0;
+    font-size: 14px;
+    clear: both;
+}
+.contain {
+    position: relative;
+    height: 100px; /* Chiều cao của phần tử chứa đường kẻ dọc */
+ }
+.line-contain {
+     position: relative;
+     width: 0px;
+     height: 100%;
+}   
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: -45px;
+    left: -75px;
+}
+.quangcao {
+    border: 1px solid black;
+    background-color: blue;
+    color: red;
+    width: 500px;
+    height: 300px;
+    clear: both;
+    opacity: 1;
+}
+.news-right{
+    width: 100%;
+    margin: auto;
+    margin-left: 20px;
+}
+h2{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.news-right>.noidung>h2>img{
+    width: 90%;
+}
+.noidung{
+    width: 70%;
+}
+.noidung .right-item{
+    display: flex;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+.right-item>img{ 
+    width: 30%;
+    width: 300px;
+    height: 150px;
+}
+.lowercase{
+      font-size: 12;
+}
+#small{
+   width:50px;
+   border: 1px solid red;
+}

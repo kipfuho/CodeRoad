@@ -97,7 +97,7 @@ int main(void) {
     EdgeList st;
     int G[MAX][MAX], n;
 
-    readData("data.txt", G , &n);
+    readData("text.txt", G , &n);
 
     kruskal( G , n , &st );
     printSpanningTree(st);
