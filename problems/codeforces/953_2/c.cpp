@@ -80,16 +80,37 @@ struct ftree{
     }
 };
 
+ll arr[200001];
+
 void sol(){
-    
+  ll n, k; cin >> n >> k;
+	if(k&1) No
+	else {
+		rep(i, 1, n + 1) arr[i] = i;
+		ll l = 1, r = n;
+		while(l <= r && k > 0) {
+			ll sw = 2*(r - l);
+			if(k < sw) l++;
+			else {
+				k -= sw;
+				swap(arr[l++], arr[r--]);
+			}
+		}
+		if(k > 0) No
+		else {
+			Yes
+			rep(i, 1, n + 1) cout << arr[i] << " \n"[i == n];
+		}
+	}
+	return;
 }
 
 int main(){_
-    //freopen("in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
-    return 0;
+	//freopen("in.txt", "r", stdin);
+	//freopen("out.txt", "w", stdout);
+	int t; cin >> t;
+	while(t--){
+			sol();
+	}
+	return 0;
 }

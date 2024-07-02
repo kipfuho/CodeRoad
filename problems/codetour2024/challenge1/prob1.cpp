@@ -81,15 +81,24 @@ struct ftree{
 };
 
 void sol(){
-    
+  int n, q, temp; cin >> n >> q;
+	ftree f = ftree(n + 1);
+	rep(i, n) {
+		cin >> temp;
+		f.update(temp, 1);
+	}
+	
+	rep(i, q) {
+		cin >> temp;
+		f.update(temp, 1);
+		cout << f.get_sum(0, temp + 1) << '\n';
+	}
+	return;
 }
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
+    sol();
     return 0;
 }

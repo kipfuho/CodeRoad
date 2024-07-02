@@ -80,8 +80,23 @@ struct ftree{
     }
 };
 
+int arr[100000], dp[100000];
+
 void sol(){
-    
+	int n; cin >> n;
+	rep(i, n) cin >> arr[i];
+	ll res = 0;
+	dp[n - 1] = arr[n - 1];
+	for(int i = n - 2; i >= 0; i--) {
+		if(arr[i] > arr[i + 1] && arr[i] > dp[i + 1]) {
+			dp[i] = arr[i];
+		}
+		else {
+			dp[i] = dp[i + 1] + 1;
+		}
+	}
+	cout << dp[0] << '\n';
+	return;
 }
 
 int main(){_

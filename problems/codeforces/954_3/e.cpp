@@ -80,8 +80,22 @@ struct ftree{
     }
 };
 
+int arr[100000];
+
 void sol(){
-    
+  int n, k; cin >> n >> k;
+	rep(i, n) cin >> arr[i];
+	int l = 0, r = n - 1, res = 0;
+	while(l < r) {
+		int dif = abs(arr[l++] - arr[r--]);
+		if(dif%k == 0) res += dif / k;
+		else {
+			res = -1;
+			break;
+		}
+	}
+	cout << res << '\n';
+	return;
 }
 
 int main(){_

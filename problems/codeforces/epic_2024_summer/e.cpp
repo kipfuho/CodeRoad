@@ -80,8 +80,39 @@ struct ftree{
     }
 };
 
+int arr[5001];
+int minop;
+
+void dfs(vector<vector<int>> &g, int cur, int pre) {
+	if(g[cur].size() == 1 && cur != 1) return;
+	int total = 0;
+	for(int v : g[cur]) {
+		if(v == pre) continue;
+		dfs(g, v, cur);
+		total += arr[v];
+	}
+	if(arr[cur] > total) {
+		minop += (total - arr[cur]);
+		arr[cur] = total;
+	}
+	else minop += (arr[cur] - total);
+	return;
+}
+
 void sol(){
-    
+  int n; cin >> n;
+	vector<vector<int>> g(n + 1, vector<int>());
+	rep(i, n) cin >> arr[i + 1];
+	rep(i, 2, n + 1) {
+		int temp; cin >> temp;
+		g[i].push_back(temp);
+		g[temp].push_back(i);
+	}
+
+	minop = 0;
+	dfs(g, 1, -1);
+	cout << minop << '\n';
+	return;
 }
 
 int main(){_

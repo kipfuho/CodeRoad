@@ -1,4 +1,4 @@
-//
+// https://codeforces.com/contest/1984/problem/C2
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,14 +80,53 @@ struct ftree{
     }
 };
 
-void sol(){
-    
+ll arr[200000], pow2[200001];
+ll mod = 998244353;
+
+void init() {
+    pow2[0] = 1;
+    rep(i, 1, 200001) pow2[i] = (pow2[i - 1]<<1)%mod;
+    return;
 }
+
+void sol(){
+    int n; cin >> n;
+    ll mn = 0, cur = 0, res = 0;
+    // Find minimum prefix sum
+    rep(i, n) {
+        cin >> arr[i];
+        cur += arr[i];
+        mn = min(mn, cur);
+    }
+
+    // If minimum prefix sum >= 0, we can always choose c = c + ai or c = |c + ai|
+    // That's mean there's 2^n possible outcome that give k
+    if(mn >= 0) {
+        cout << pow2[n] << '\n';
+        return;
+    }
+
+    // preIdx is total position that give prefix sum >= 0, meaning c + ai = |c + ai|
+    int preIdx = 0;
+    cur = 0;
+    rep(i, n) {
+        cur += arr[i];
+        if(cur >= 0) preIdx++;
+        // When current prefix sum = mn, we can always choose either option for
+        // subsequence index, and there's preIdx position that's c + ai = |c + ai|
+        // before, so that's 2^(preIdx + n - i - 1)
+        if(cur == mn) res = (res + pow2[preIdx + n - i - 1]) % mod;
+    }
+    cout << res << '\n';
+    return;
+}
+
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
     int t; cin >> t;
+    init();
     while(t--){
         sol();
     }

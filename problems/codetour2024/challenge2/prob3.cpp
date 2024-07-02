@@ -81,15 +81,31 @@ struct ftree{
 };
 
 void sol(){
-    
+    int n, res = 1; cin >> n;
+    string s; cin >> s;
+    set<string> st;
+    int open = 0;
+    string cur = "";
+    rep(i, n) {
+        cur += s[i];
+        if(s[i] == '(') open++;
+        else {
+            open--;
+            if(open == 0) {
+                st.insert(cur);
+                cur = "";
+            }
+        }
+    }
+    int unq = (int) st.size();
+    for(int i = 1; i <= unq; i++) res *= i;
+    cout << res;
+    return;
 }
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
+    sol();
     return 0;
 }

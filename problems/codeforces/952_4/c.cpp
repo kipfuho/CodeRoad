@@ -1,4 +1,4 @@
-//
+// https://codeforces.com/contest/1985/problem/C
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,8 +80,23 @@ struct ftree{
     }
 };
 
+ll arr[200000];
+
 void sol(){
-    
+  int n; cin >> n;
+	rep(i, n) cin >> arr[i];
+	ll sum = 0, res = 0;
+	map<ll, bool> mp;
+	mp[0] = true;
+	rep(i, n) {
+		sum += arr[i];
+		mp[arr[i]] = true;
+		if(sum%2 == 0 && mp[sum / 2]) {
+			res++;
+		}
+	}
+	cout << res << '\n';
+	return;
 }
 
 int main(){_

@@ -80,8 +80,24 @@ struct ftree{
     }
 };
 
+pii directions[4] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+int mat[100][100];
+
 void sol(){
-    
+	int n, m; cin >> n >> m;
+	rep(i, n) rep(j, m) cin >> mat[i][j];
+	rep(i, n) rep(j, m) {
+		int best = -1;
+		for(pii dir : directions) {
+			int x = i + dir.first, y = j + dir.second;
+			if(x >= 0 && x < n && y >= 0 && y < m) {
+				best = max(best, mat[x][y]);
+			}
+		}
+		if(mat[i][j] > best) mat[i][j] = best;
+	}
+	rep(i, n) rep(j, m) cout << mat[i][j] << " \n"[j == m - 1];
+	return;
 }
 
 int main(){_

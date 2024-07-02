@@ -81,15 +81,68 @@ struct ftree{
 };
 
 void sol(){
-    
+    int n; cin >> n;
+    int temp, p;
+    vector<int> arr(10e6, 0);
+    vector<int> res;
+    rep(i, n) {
+        cin >> temp;
+        for(int j = 2; j <= sqrt(temp); j++) {
+            if(temp%j == 0) {
+                while(temp%j == 0) {
+                    arr[j]++;
+                    temp /= j;
+                }
+            }
+        }
+        
+        if(temp > 1) arr[temp]++;
+    }
+
+    int t; cin >> t;
+    rep(i, t) {
+        cin >> temp >> p;
+        int cnt = 0;
+        for(int j = 2; j <= sqrt(temp); j++) {
+            if(temp%j == 0) {
+                if(!arr[j]) {
+                    res.pb(0);
+                    cnt = -1;
+                    break;
+                }
+                cnt = 0;
+                while(temp%j == 0) {
+                    cnt++;
+                    temp /= j;
+                }
+                if(arr[j] < cnt*p) {
+                    res.pb(0);
+                    cnt = -1;
+                    break;
+                }
+            }
+        }
+        if(cnt == -1) continue;
+        if(temp > 1) {
+            if(!arr[temp] || arr[temp] < p) {
+                res.pb(0);
+            }
+            else {
+                res.pb(1);
+            }
+        }
+        else {
+            res.pb(1);
+        }
+    }
+
+    for(int i : res) cout << i;
+    return;
 }
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
+    sol();
     return 0;
 }

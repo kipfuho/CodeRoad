@@ -80,8 +80,11 @@ struct ftree{
     }
 };
 
-void sol(){
-    
+inline void sol(){
+	int x, y; cin >> x >> y;
+	if(y < -1) NO
+	else YES
+	return;
 }
 
 int main(){_

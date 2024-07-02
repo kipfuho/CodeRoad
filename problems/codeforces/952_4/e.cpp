@@ -81,7 +81,18 @@ struct ftree{
 };
 
 void sol(){
-    
+  ll x, y, z, k; cin >> x >> y >> z >> k;
+	ll res = 0;
+	for(ll i = 1; i <= x; i++) {
+		for(ll j = 1; j <= y; j++) {
+			if(k%(i*j) != 0) continue;
+			ll z1 = k / (i*j);
+			if(z1 > z) continue;
+			res = max(res, (x - i + 1)*(y - j + 1)*(z - z1 + 1));
+		}
+	}
+	cout << res << '\n';
+	return;
 }
 
 int main(){_

@@ -80,8 +80,15 @@ struct ftree{
     }
 };
 
+int arr[200000];
+
 void sol(){
-    
+  int n; cin >> n;
+	rep(i, n) cin >> arr[i];
+	int minn = INT_MAX;
+	rep(i, n - 1) minn = min(minn, max(arr[i], arr[i + 1]));
+	cout << minn - 1 << '\n';
+	return;
 }
 
 int main(){_

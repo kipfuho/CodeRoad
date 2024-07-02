@@ -81,7 +81,15 @@ struct ftree{
 };
 
 void sol(){
-    
+  int x, y; cin >> x >> y;
+	int z = x^y;
+	int res = 0;
+	while (z%2 == 0) {
+		res++;
+		z >>= 1;
+	}
+	cout << (1<<res) << '\n';
+	return;
 }
 
 int main(){_

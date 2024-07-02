@@ -1,0 +1,1 @@
+Chạy file ora1.html là được

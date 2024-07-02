@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="ora3.css"/>
+    <title>ORA 3</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+	<script>
+		const mssv='20215317', myName='Nguyễn Đình Út Biu';
+		
+		function createTrashIcon() {
+    	// Create SVG element
+			var svg=document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+			svg.setAttribute("width", "16");
+			svg.setAttribute("height", "16");
+			svg.setAttribute("fill", "currentColor");
+			svg.setAttribute("viewBox", "0 0 16 16");
+
+			// Create first path element
+			var path1=document.createElementNS("http://www.w3.org/2000/svg", "path");
+			path1.setAttribute("d", "M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z");
+
+			// Create second path element
+			var path2=document.createElementNS("http://www.w3.org/2000/svg", "path");
+			path2.setAttribute("d", "M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z");
+
+			// Append path elements to SVG
+			svg.appendChild(path1);
+			svg.appendChild(path2);
+
+			return svg;
+		}
+
+		function createPDFIcon(size='16') {
+    	// Create SVG element
+			var svg=document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+			svg.setAttribute("width", size);
+			svg.setAttribute("height", size);
+			svg.setAttribute("fill", "currentColor");
+			svg.setAttribute("viewBox", "0 0 16 16");
+
+			// Create first path element
+			var path1=document.createElementNS("http://www.w3.org/2000/svg", "path");
+			path1.setAttribute("d", "M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z");
+
+			// Create second path element
+			var path2=document.createElementNS("http://www.w3.org/2000/svg", "path");
+			path2.setAttribute("d", "M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z");
+
+			// Append path elements to SVG
+			svg.appendChild(path1);
+			svg.appendChild(path2);
+
+			return svg;
+		}
+
+		// create new <select> element with items as options's value
+		function createSelectElement(items, value=0) {
+			const container=document.createElement('span');
+			container.className='item-holder';
+
+				const selectElement=document.createElement('select');
+				selectElement.style.width='100%';
+			selectElement.title='Select value';
+
+			const inputElement=document.createElement('input');
+			inputElement.placeholder='Add items, seperated by a semicolon(;)';
+			inputElement.style.width='100%';
+			inputElement.hidden=true;
+			inputElement.spellcheck=false;
+
+			items.forEach(item => {
+				const optionElement=document.createElement('option');
+				optionElement.value=item;
+				optionElement.innerHTML=item;
+				selectElement.appendChild(optionElement);
+			});
+
+			selectElement.addEventListener('dblclick', function() {
+				let itemsString='';
+				selectElement.childNodes.forEach(childNode => {
+					itemsString += (childNode.value + ';');
+				});
+				inputElement.value=itemsString.slice(0, -1);
+				inputElement.hidden=false;
+				selectElement.hidden=true;
+				inputElement.selectionStart=inputElement.selectionEnd=inputElement.value.length;
+				inputElement.focus();
+			});
+
+			inputElement.addEventListener('keydown', function(e) {
+				if(e.key === 'Enter' || e.keyCode === 13) {
+					const currentItems=inputElement.value.split(';');
+					while (selectElement.firstChild) {
+						selectElement.removeChild(selectElement.firstChild);
+					}
+					currentItems.forEach(item => {
+						const optionElement=document.createElement('option');
+						optionElement.value=item;
+						optionElement.innerHTML=item;
+						selectElement.appendChild(optionElement);
+					});
+					inputElement.hidden=true;
+					selectElement.hidden=false;
+				}
+				if(e.key === 'Esc' || e.keyCode === 27) {
+					inputElement.hidden=true;
+					selectElement.hidden=false;
+				}
+			});
+
+			selectElement.options.selectedIndex=value;
+			container.appendChild(selectElement);
+			container.appendChild(inputElement);
+			return container;
+		}
+
+		// create new <input type='radio'> with items as radio's value
+		function createRadioElement(items, value=0, br=false) {
+			const container=document.createElement('span');
+			container.className='item-holder';
+
+			const formContainer=document.createElement('form');
+			formContainer.style.width='100%';
+			
+			const inputElement=document.createElement('input');
+			inputElement.placeholder='Add items, seperated by a semicolon(;)';
+			inputElement.style.width='100%';
+			inputElement.hidden=true;
+			inputElement.spellcheck=false;
+			
+			const radioName=`radio-${new Date().getTime()}`;
+			items.forEach((item, index) => {
+				const radioElement=document.createElement('input');
+				const labelElement=document.createElement('label');
+				radioElement.type='radio';
+				radioElement.id=`radio-${item}-${new Date().getTime()}`;
+				radioElement.name=radioName;
+				radioElement.value=item;
+				labelElement.setAttribute('for', radioElement.id);
+				labelElement.innerHTML=item;
+				formContainer.appendChild(radioElement);
+				formContainer.appendChild(labelElement);
+				if(index === value) {
+					radioElement.checked=true;
+				}
+				if(br) {
+					const breakElement=document.createElement('br');
+					formContainer.appendChild(breakElement);
+				}
+			});
+
+			formContainer.addEventListener('dblclick', function() {
+				let itemsString='';
+				formContainer.childNodes.forEach(childNode => {
+					if(childNode.tagName === 'INPUT') {
+						itemsString += (childNode.value + ';');
+					}
+				});
+				inputElement.value=itemsString.slice(0, -1);
+				inputElement.hidden=false;
+				formContainer.hidden=true;
+				inputElement.selectionStart=inputElement.selectionEnd=inputElement.value.length;
+				inputElement.focus();
+			});
+
+			inputElement.addEventListener('keydown', function(e) {
+				if(e.key === 'Enter' || e.keyCode === 13) {
+					const currentItems=inputElement.value.split(';');
+					while (formContainer.firstChild) {
+						formContainer.removeChild(formContainer.firstChild);
+					}
+					currentItems.forEach(item => {
+						const radioElement=document.createElement('input');
+						const labelElement=document.createElement('label');
+						radioElement.type='radio';
+						radioElement.id=`radio-${item}-${new Date().getTime()}`;
+						radioElement.name=radioName;
+						radioElement.value=item;
+						labelElement.setAttribute('for', radioElement.id);
+						labelElement.innerHTML=item;
+						formContainer.appendChild(radioElement);
+						formContainer.appendChild(labelElement);
+					});
+					inputElement.hidden=true;
+					formContainer.hidden=false;
+				}
+				if(e.key === 'Esc' || e.keyCode === 27) {
+					inputElement.hidden=true;
+					formContainer.hidden=false;
+				}
+			});
+			
+			container.appendChild(formContainer);
+			container.appendChild(inputElement);
+			return container;
+		}
+
+		// create itemChooser Popover when click < Add Info Item >
+		function createItemTypeChooser(groupItem) {
+			// create new element
+			const container=document.createElement('div');
+
+			const tagNameContainer=document.createElement('form');
+			const labelTagName=document.createElement('h3');
+			const tagNameInput=document.createElement('input');
+			const tagNameSelect=document.createElement('input');
+			const tagNameImage=document.createElement('input');
+			const labelInput=document.createElement('label');
+			const labelSelect=document.createElement('label');
+			const labelImage=document.createElement('label');
+
+			const inputTypeContainer=document.createElement('div');
+			const labelInputType=document.createElement('h3');
+			const textInput=document.createElement('input');
+			const checkInput=document.createElement('input');
+			const labelText=document.createElement('label');
+			const labelCheck=document.createElement('label');
+			const labelItemInput=document.createElement('span');
+			const itemInput=document.createElement('input');
+
+			const selectTypeContainer=document.createElement('div');
+			const labelSelectType=document.createElement('h3');
+			const labelItemSelect=document.createElement('span');
+			const itemSelect=document.createElement('input');
+
+			const labelQuantity=document.createElement('h3');
+			const quantityInput=document.createElement('input');
+
+			const addButton=document.createElement('button');
+			const cancelButton=document.createElement('button');
+
+			// initial value
+			container.className='popover-itemchooser';
+
+			labelTagName.innerHTML='Choose element type';
+			tagNameInput.id='popover-itemtype-input';
+			tagNameInput.type='radio';
+			tagNameInput.name='popover-itemtype';
+			tagNameInput.checked=true;
+			tagNameSelect.id='popover-itemtype-select';
+			tagNameSelect.type='radio';
+			tagNameSelect.name='popover-itemtype';
+			tagNameImage.id='popover-itemtype-image';
+			tagNameImage.type='radio';
+			tagNameImage.name='popover-itemtype';
+			labelInput.setAttribute('for', tagNameInput.id);
+			labelSelect.setAttribute('for', tagNameSelect.id);
+			labelImage.setAttribute('for', labelImage.id);
+			labelInput.innerHTML='Input(Text, Check box)';
+			labelSelect.innerHTML='Select(Choose an item from a list)';
+			labelImage.innerHTML='Image';
+
+			labelInputType.innerHTML='Choose input type';
+			textInput.type='radio';
+			textInput.name='popover-inputType';
+			textInput.id='popover-inputType-text';
+			textInput.checked=true;
+			checkInput.type='radio';
+			checkInput.name='popover-inputType';
+			checkInput.id='popover-inputType-check';
+			labelText.setAttribute('for', textInput.id);
+			labelCheck.setAttribute('for', checkInput.id);
+			labelText.innerHTML="Text";
+			labelCheck.innerHTML="Check Box";
+			labelItemInput.innerHTML='Items(for check box): ';
+			itemInput.placeholder='Add your items, seperated by a semicolon(;)';
+			itemInput.style.width='300px'
+			itemInput.disabled=true;
+
+			selectTypeContainer.hidden=true;
+			labelSelectType.innerHTML='Add select options';
+			labelItemSelect.innerHTML='Items: ';
+			itemSelect.placeholder='Add your items, seperated by a semicolon(;)';
+			itemSelect.style.width='300px'
+
+			labelQuantity.innerHTML='Select number of times you want to add';
+			quantityInput.type='number';
+			quantityInput.value=1;
+			quantityInput.placeholder='How many times? (default=1)';
+			quantityInput.style.width='200px';
+
+			addButton.type='button';
+			addButton.title='Add new element';
+			addButton.innerHTML='Add';
+			addButton.style.marginTop='10px'
+			cancelButton.type='button';
+			cancelButton.title='Cancel adding new Item';
+			cancelButton.innerHTML='Cancel';
+			cancelButton.style.marginTop='10px';
+
+			// add event
+			tagNameInput.addEventListener('change', function() {
+				inputTypeContainer.hidden=null;
+				selectTypeContainer.hidden=true;
+			});
+
+			tagNameSelect.addEventListener('change', function() {
+				inputTypeContainer.hidden=true;
+				selectTypeContainer.hidden=null;
+			});
+
+			tagNameImage.addEventListener('change', function() {
+				inputTypeContainer.hidden=true;
+				selectTypeContainer.hidden=true;
+			});
+
+			textInput.addEventListener('change', function() {
+				itemInput.disabled=true;
+			});
+
+			checkInput.addEventListener('change', function() {
+				itemInput.disabled=false;
+			});
+
+			addButton.addEventListener('click', function() {
+				if(tagNameInput.checked) {
+					if(textInput.checked) {
+						for(let i=0; i<quantityInput.value??1; i++) {
+							groupItem.appendChild(createItem(null, null, 'input', 'text'));
+						}
+					} else {
+						for(let i=0; i<quantityInput.value??1; i++) {
+							groupItem.appendChild(createItem(null, null, 'input', 'radio', itemInput.value.split(';')));
+						}
+					}
+				} else if(tagNameSelect.checked) {
+					for(let i=0; i<quantityInput.value??1; i++) {
+						groupItem.appendChild(createItem(null, null, 'select', null, itemSelect.value.split(';')));
+					}
+				} else {
+					for(let i=0; i<quantityInput.value??1; i++) {
+						groupItem.appendChild(createItem(null, null, 'img'));
+					}
+				}
+				const popover=document.getElementById('popover');
+				popover.style.display='none';
+				popover.removeChild(container);
+			});
+
+			cancelButton.addEventListener('click', function(){
+				const popover=document.getElementById('popover');
+				popover.style.display='none';
+				popover.removeChild(container);
+			});
+
+ 			tagNameContainer.appendChild(labelTagName);
+			tagNameContainer.appendChild(tagNameInput);
+			tagNameContainer.appendChild(labelInput);
+			tagNameContainer.appendChild(document.createElement('br'));
+			tagNameContainer.appendChild(tagNameSelect);
+			tagNameContainer.appendChild(labelSelect);
+			tagNameContainer.appendChild(document.createElement('br'));
+			tagNameContainer.appendChild(tagNameImage);
+			tagNameContainer.appendChild(labelImage);
+
+			inputTypeContainer.appendChild(labelInputType);
+			inputTypeContainer.appendChild(textInput);
+			inputTypeContainer.appendChild(labelText);
+			inputTypeContainer.appendChild(checkInput);
+			inputTypeContainer.appendChild(labelCheck);
+			inputTypeContainer.appendChild(document.createElement('br'));
+			inputTypeContainer.appendChild(labelItemInput);
+			inputTypeContainer.appendChild(itemInput);
+			selectTypeContainer.appendChild(labelSelectType);
+			selectTypeContainer.appendChild(labelItemSelect);
+			selectTypeContainer.appendChild(itemSelect);
+			container.appendChild(tagNameContainer);
+			container.appendChild(inputTypeContainer);
+			container.appendChild(selectTypeContainer);
+			container.appendChild(labelQuantity);
+			container.appendChild(quantityInput);
+			container.appendChild(document.createElement('br'));
+			container.appendChild(addButton);
+			container.appendChild(cancelButton);;
+			return container;
+		}
+
+		// create new item
+		function createItem(name="Item Info Name", value=null, tagName='input', type='text', items=null) {
+			// create new element
+			const itemContainer=document.createElement('div');
+			const itemNameContainer=document.createElement('span');
+			const itemName=document.createElement('input');
+			let itemValueContainer;
+			const deleteButton=document.createElement('button');
+
+			// item name
+			itemName.className='item-name';
+			itemName.value=name??"Item Info Name";
+			itemName.placeholder='Enter Item Info Name';
+			itemName.disabled=true;
+			let itemNameBackup=itemName.value;
+
+			itemNameContainer.addEventListener('dblclick', function() {
+				itemNameBackup=itemName.value;
+        itemName.disabled=false;
+				itemName.style.pointerEvents='';
+				itemName.selectionStart=itemName.selectionEnd=itemName.value.length;
+				itemName.focus();
+			});
+
+			itemName.addEventListener('keydown', function(e) {
+				if(e.key === 'Enter' || e.keyCode === 13) {
+					if(itemName.value.length === 0) {
+						itemName.value=name??"Item Info Name";
+					}
+					itemName.disabled=true;
+					itemName.style.pointerEvents='none';
+				}
+				if(e.key === 'Esc' || e.keyCode === 27) {
+					itemName.value=itemNameBackup;
+					itemName.disabled=true;
+					itemName.style.pointerEvents='none';
+				}
+			});
+			
+			// item value
+			if(tagName === 'input') {
+				if(type === 'text') {
+					const itemValue=document.createElement('input');
+					itemValueContainer=document.createElement('span');
+					itemValueContainer.appendChild(itemValue);
+					itemValueContainer.className='item-holder';
+					itemValue.placeholder='Enter Item Info Value';
+					itemValue.style.pointerEvents='none';
+					itemValue.style.width='100%';
+					itemValue.type='text';
+					itemValue.value=value??'';
+					itemValue.disabled=true;
+					let itemValueBackup=itemValue.value;
+					
+					itemValueContainer.addEventListener('dblclick', function() {
+						itemValueBackup=itemValue.value;
+						itemValue.disabled=false;
+						itemValue.style.pointerEvents='';
+						itemValue.selectionStart=itemValue.selectionEnd=itemValue.value.length;
+						itemValue.focus();
+					});
+
+					itemValue.addEventListener('keydown', function(e) {
+						if(e.key === 'Enter' || e.keyCode === 13) {
+							if(itemValue.value.length===0) {
+								itemValue.value=value??'';
+							}
+							itemValue.disabled=true;
+							itemValue.style.pointerEvents='none';
+						}
+						if(e.key === 'Esc' || e.keyCode === 27) {
+							itemValue.value=itemValueBackup;
+							itemValue.disabled=true;
+							itemValue.style.pointerEvents='none';
+						}
+					});
+				} else {
+					if(items) {
+						itemValueContainer=createRadioElement(items, value??0);
+					}
+				}
+			} else if(tagName === 'select') {
+				if(items) {
+					itemValueContainer=createSelectElement(items, value??0);
+				}
+			} else {
+				itemValueContainer=document.createElement('div');
+				itemValueContainer.style.display='flex';
+				itemValueContainer.style.justifyContent='center';
+				itemValueContainer.style.justifyItems='start';
+				itemValueContainer.style.overflow='auto';
+
+				const itemValue=document.createElement('img');
+				itemValue.className='simple-img';
+				itemValue.alt='img';
+
+				const changeButton=document.createElement('button');
+				changeButton.type='button';
+				changeButton.title='Change image';
+				changeButton.innerHTML='< Change image >';
+				changeButton.className='simple-button';
+
+				changeButton.addEventListener('click', function() {
+					let input=document.createElement('input');
+					input.type='file';
+					input.accept='image/png, image/jpeg, image/bmp, image/gif';
+					input.onchange=_this => {
+						let file=input.files[0];
+						if(file) {
+							let reader=new FileReader();
+							reader.onload=function(event) {
+								let extension = file.name.split('.').pop().toLowerCase();
+								if(['png', 'jpeg', 'jpg', 'gif', 'bmp'].includes(extension)) {
+									itemValue.src=event.target.result;
+								} else {
+									alert('Please choose an supported image');
+								}
+							};
+							reader.readAsDataURL(file);
+					}
+					};
+					input.click();
+				});
+
+				itemValueContainer.appendChild(itemValue);
+				itemValueContainer.appendChild(changeButton);
+			}
+			
+			deleteButton.addEventListener('click', function() {
+				const confirmDeletion=confirm(`Họ tên: ${myName}\nMSSV: ${mssv}\n\nXác nhận xoá Item Info?`);
+				if(confirmDeletion) {
+					itemContainer.parentNode.removeChild(itemContainer);
+				}
+			});
+			
+			deleteButton.type='button';
+			deleteButton.title='Delete Item';
+			deleteButton.className='simple-button';
+			itemNameContainer.appendChild(itemName);
+			deleteButton.appendChild(createTrashIcon());
+			itemContainer.className='item-container';
+			itemContainer.appendChild(itemNameContainer);
+			itemContainer.appendChild(itemValueContainer);
+			itemContainer.appendChild(deleteButton);
+			return itemContainer;
+		}
+		
+		// create new group item
+		function createGroupItem(name="Group Item" + '_' + mssv, items=null, deletable=true) {
+			// create new element
+			const mainContainer=document.createElement('div');
+			const headerContainer=document.createElement('div');
+			const groupName=document.createElement('span');
+			const groupNameEditor=document.createElement('input');
+			const addItemButton=document.createElement('button');
+			const addGroupButton=document.createElement('button');
+			const itemContainer=document.createElement('div');
+
+			// add event listener
+			addItemButton.addEventListener('click', function() {
+				const popover=document.getElementById('popover');
+				popover.style.display='flex';
+				popover.appendChild(createItemTypeChooser(itemContainer));
+			});
+
+			addGroupButton.addEventListener('click', function() {
+				document.body.insertBefore(createGroupItem(), mainContainer.nextSibling);
+			});
+
+			groupName.addEventListener('dblclick', function() {
+				groupName.style.display='none';
+				groupNameEditor.style.display='';
+				groupNameEditor.value=groupName.innerHTML.split('_')[0];
+				groupNameEditor.selectionStart=groupNameEditor.selectionEnd=groupNameEditor.value.length;
+				groupNameEditor.focus();
+			})
+
+			groupNameEditor.addEventListener('keydown', function(e) {
+				if(e.key === 'Enter' || e.keyCode === 13) {
+					groupName.innerHTML=`${groupNameEditor.value.replace(/_/g, '-').trim()}_${mssv}`;
+					groupName.style.display='';
+					groupNameEditor.style.display='none';
+				}
+			})
+
+			// initial value
+			groupName.innerHTML=name;
+			groupName.className='group-item-header';
+
+			groupNameEditor.style.display='none';
+			groupNameEditor.placeholder='Enter Group Item Name';
+
+			addItemButton.innerHTML='< Add Info Item >';
+			addItemButton.className='simple-button';
+			addItemButton.type='button';
+			addItemButton.title='Add New Item';
+
+			addGroupButton.innerHTML='< Add Group Item >';
+			addGroupButton.className='simple-button';
+			addGroupButton.type='button';
+			addGroupButton.title='Add New Group Item';
+			if(items) {
+				items.forEach(item => {
+					itemContainer.appendChild(item);
+				});
+			}
+			itemContainer.className='group-container';
+			mainContainer.setAttribute('name', 'groupItem');
+
+			headerContainer.appendChild(groupName);
+			headerContainer.appendChild(groupNameEditor);
+			headerContainer.appendChild(addItemButton);
+			headerContainer.appendChild(addGroupButton);
+			mainContainer.appendChild(headerContainer);
+			mainContainer.append(itemContainer);
+
+			if(deletable) {
+				const deleteButton=document.createElement('button');
+				deleteButton.className='simple-button';
+				deleteButton.appendChild(createTrashIcon());
+				deleteButton.addEventListener('click', function() {
+					const confirmDeletion=confirm(`Họ tên: ${myName}\nMssv: ${mssv}\n\nXác nhận xoá Group Item?`);
+					if(confirmDeletion) {
+						document.body.removeChild(mainContainer);
+					}
+				});
+				headerContainer.appendChild(deleteButton);
+			}
+			return mainContainer;
+		}
+
+		function exportToPDF(binaryString) {
+			const { jsPDF }=window.jspdf;
+
+			const doc=new jsPDF();
+			const MAXPDFWIDTH=170; // paper size(width-height) is 210-304
+			const MAXIMGWIDTH=80, MAXIMGHEIGHT=170; // page ratio is 0.472
+
+			// add the font to jsPDF
+			doc.addFileToVFS("MyFont.ttf", binaryString);
+			doc.addFont("MyFont.ttf", "MyFont", "normal");
+			doc.setFont("MyFont");
+
+			doc.setFontSize(20);
+			doc.text("THÔNG TIN HỌC TẬP", (doc.internal.pageSize.width - doc.getTextWidth("THÔNG TIN SINH VIÊN")) / 2, 20);
+			doc.setFontSize(15);
+
+			let offsetY=24;
+			document.body.childNodes.forEach(node => {
+				if(node.getAttribute('name') === 'groupItem') {
+					// add group header to pdf
+					const header=node.childNodes[0];
+					const itemNodes=node.childNodes[1].childNodes;
+					const groupItemNameLines=doc.splitTextToSize(header.childNodes[0].innerHTML.split('_')[0], MAXPDFWIDTH);
+					doc.setFontSize(15);
+					groupItemNameLines.forEach(line => {
+						offsetY += 6;
+						if(offsetY > 290) {
+							offsetY=20;
+							doc.addPage();
+						}
+						doc.text(line, 20, offsetY);
+					})
+
+					// add items to pdf
+					doc.setFontSize(12);
+					if(itemNodes.length > 0) {
+						offsetY += 2;
+						if(offsetY > 290) {
+							offsetY=20;
+							doc.addPage();
+						}
+					}
+					itemNodes.forEach(itemNode => {
+						const itemName=itemNode.childNodes[0].childNodes[0].value;
+						const itemValueHolder=itemNode.childNodes[1].firstChild;
+						if(itemValueHolder.tagName==='INPUT') {
+							const itemValue=itemValueHolder.value;
+							const textLines=doc.splitTextToSize(itemName + ' ' + itemValue, MAXPDFWIDTH);
+							textLines.forEach(line => {
+								offsetY += 5;
+								if(offsetY > 290) {
+									offsetY=20;
+									doc.addPage();
+								}
+								doc.text(line, 20, offsetY);
+							});
+							offsetY += 1;
+							if(offsetY > 290) {
+								offsetY=20;
+								doc.addPage();
+							}
+						} else if(itemValueHolder.tagName==='FORM') {
+							itemValueHolder.childNodes.forEach(node => {
+								if(node.tagName==='INPUT' && node.type==='radio' && node.checked) {
+									const itemValue=node.value;
+									const textLines=doc.splitTextToSize(itemName + ' ' + itemValue, MAXPDFWIDTH);
+									textLines.forEach(line => {
+										offsetY += 5;
+										if(offsetY > 290) {
+											offsetY=20;
+											doc.addPage();
+										}
+										doc.text(line, 20, offsetY);
+									});
+									offsetY += 1;
+									if(offsetY > 290) {
+										offsetY=20;
+										doc.addPage();
+									}
+									return;
+								}
+							});
+						} else if(itemValueHolder.tagName==='SELECT') {
+							const itemValue=itemValueHolder.options[itemValueHolder.options.selectedIndex].value;
+							const textLines=doc.splitTextToSize(itemName + ' ' + itemValue, MAXPDFWIDTH);
+							textLines.forEach(line => {
+								offsetY += 5;
+								if(offsetY > 290) {
+									offsetY=20;
+									doc.addPage();
+								}
+								doc.text(line, 20, offsetY);
+							});
+							offsetY += 1;
+							if(offsetY > 290) {
+								offsetY=20;
+								doc.addPage();
+							}
+						} else if(itemValueHolder.tagName==='IMG') {
+							const img=itemValueHolder;
+							offsetY += 5;
+							if(offsetY > 290) {
+								offsetY=20;
+								doc.addPage();
+							}
+							if(img.src) {
+								doc.text(itemName + ' ', 20, offsetY);
+								const nWidth=img.naturalWidth, nHeight=img.naturalHeight;
+								const ratio=nWidth / nHeight;
+								let offsetX=20 + doc.getTextWidth(itemName + ' ');
+								let height, width;
+								if(ratio < 0.472) {
+									height=MAXIMGHEIGHT, width=Math.floor(ratio*MAXIMGHEIGHT);
+								} else {
+									height=Math.floor(MAXIMGWIDTH/ratio), width=MAXIMGWIDTH;
+								}
+								if(doc.getTextWidth(itemName) + width > 170) {
+									offsetX=(doc.internal.pageSize.width - doc.getTextWidth(itemName + ' ') - width) / 2;
+									offsetY += 5;
+									if(offsetY > 290) {
+										offsetY=20;
+										doc.addPage();
+									}
+								}
+								if(offsetY + height - 4 > 290) {
+									offsetY=20;
+									doc.addPage();
+								}
+								doc.addImage(img, 'JPEG', offsetX, offsetY - 4, width, height);
+								offsetY += height;
+							} else {
+								doc.text(itemName + ' None', 20, offsetY);
+								offsetY += 1;
+							}
+						}
+					});
+					offsetY += 4;
+					if(offsetY > 290) {
+						offsetY=20;
+						doc.addPage();
+					}
+				}
+			});
+			doc.save('ttsv.pdf');
+		}
+
+		// create initial element
+		const body=document.createElement('body');
+		const popover=document.createElement('div');
+		const header=document.createElement('div');
+		const title=document.createElement('h2');
+		const exportButton=document.createElement('button');
+
+		// initial value
+		body.id='mainBody';
+
+		popover.className='popover';
+		popover.id='popover';
+		popover.style.display='none';
+
+		title.innerHTML='THÔNG TIN CÁ NHÂN';
+		title.style.display='inline-block';
+		title.style.marginRight='5px';
+
+		exportButton.id='exportButton';
+		exportButton.className='simple-button';
+		exportButton.type='button';
+		exportButton.title='Export to PDF';
+		
+		// export to PDF
+		exportButton.addEventListener('click', function(){
+			// try fetching (require server like Live server from Vscode)
+			const myFont = fetch('Roboto-Regular.ttf')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.blob();
+			})
+			.then(blob => {
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					const binaryString = e.target.result;
+					exportToPDF(binaryString);
+				};
+				reader.readAsBinaryString(blob);
+			})
+			.catch(e => {
+				// error is probably not found or cors issue
+				// select font file for UTF-8 first
+				let input=document.createElement('input');
+				input.type='file';
+				input.accept='.ttf';
+				input.addEventListener('change', function(e){
+					let file=e.target.files[0];
+					if(file) {
+						let reader=new FileReader();
+						reader.onload=function(e) {
+							const binaryString = e.target.result;
+							exportToPDF(binaryString);
+						};
+						reader.readAsBinaryString(file);
+					}
+				});
+				input.click();
+			})
+		});
+
+		exportButton.appendChild(createPDFIcon('25'));
+		
+		header.appendChild(title);
+		header.appendChild(exportButton);
+
+		body.appendChild(popover);
+		body.appendChild(header);
+		body.appendChild(createGroupItem(
+			`Thông tin sinh viên_${mssv}`, // group name
+			[
+				createItem('Họ và tên:', myName),
+				createItem('Mã số sinh viên:', mssv), 
+				createItem('Chương trình đào tạo:', 'Khoa học Máy tính 2021'),
+				createItem('Giới tính:', 0, 'input', 'radio', ['Nam', 'Nữ']),
+				createItem('Khoa/Viện quản lý:', 0, 'select', null, [
+					'Trường Công nghệ thông tin và Truyền thông',
+					'Trường Cơ khí',
+					'Trường Vật liệu',
+					'Trường Điện - Điện tử',
+					'Trường Hoá và Khoa học sự sống'
+				]),
+				createItem('Ảnh:', 0, 'img', null),
+
+			], // group item
+			false // can delete group?
+		));
+		body.appendChild(createGroupItem(
+			`Thông tin học tập_${mssv}`,
+			[createItem(), createItem(), createItem()]
+		));
+		document.documentElement.appendChild(body);
+	</script>
+</html>

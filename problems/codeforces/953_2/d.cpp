@@ -80,8 +80,65 @@ struct ftree{
     }
 };
 
+ll arr[200000], brr[200000], dp[200000];
+
+ll find(ll curVal, ll maxVal, ll n) {
+	ll findVal = maxVal - curVal;
+	if(findVal <= 0) return 0;
+	ll l = 0, r = n - 1, rmv;
+	while(l <= r) {
+		ll mid = (l + r) / 2;
+		if(brr[mid] >= findVal) {
+			r = mid - 1;
+			rmv = mid - l + 1;
+		}
+		else {
+			l = mid + 1;
+		}
+	}
+	return rmv;
+}
+
 void sol(){
-    
+  ll n, c, temp; cin >> n >> c;
+	ll maxVote = 0, freeVote;
+	bool firstMax = true;
+	rep(i, n) {
+		cin >> temp;
+		arr[i] = brr[i] = temp;
+		maxVote = max(maxVote, i == 0 ? (c + temp) : temp);
+	}
+	sort(brr, brr + n, greater<ll>());
+	rep(i, 1, n) brr[i] += brr[i - 1];
+
+	if(arr[0] + c == maxVote) {
+		dp[0] = 0;
+		firstMax = false;
+	}
+	else {
+		ll vote = arr[0] + c;
+		int rmv = find(vote, maxVote, n);
+		dp[0] = rmv;
+	}
+
+	freeVote = c + arr[0];
+	rep(i, 1, n) {
+		if(arr[i] == maxVote && firstMax) {
+			dp[i] = 0;
+			firstMax = false;
+		}
+		else {
+			if(freeVote + arr[i] > maxVote) dp[i] = i;
+			else {
+				ll vote = freeVote + arr[i];
+				int rmv = find(vote, maxVote, n);
+				dp[i] = i + rmv;
+			}
+		}
+		freeVote += arr[i];
+	}
+	rep(i, n) cout << dp[i] << " \n"[i == n - 1];
+	return;
 }
 
 int main(){_

@@ -81,15 +81,45 @@ struct ftree{
 };
 
 void sol(){
-    
+    int n, m, k, x, y; cin >> n >> m >> k >> x >> y;
+    int arr[n]; rep(i, n) cin >> arr[i];
+    int a1 = 0, a2 = 0, a3;
+    rep(i, n) {
+        if(arr[i] == k) a1++;
+        else {
+            a2++;
+            if(arr[i] % k != 0) a3 = 1;
+        }
+    }
+
+    int mincost = 0;
+    if(x < y) {
+        if(a1 < n) {
+            mincost = a1*x + (m - a1)*y;
+        }
+        else {
+            mincost += (m-1)*x;
+            if(a3 == 0) mincost += x;
+            else mincost += y;
+        }
+    }
+    else {
+        if(a2 < n) {
+            mincost = a2*y + (m - a2)*x;
+        }
+        else {
+            mincost += (m-1)*y;
+            if(a3 == 0) mincost += x;
+            else mincost += y;
+        }
+    }
+    cout << mincost;
+    return;
 }
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
+    sol();
     return 0;
 }

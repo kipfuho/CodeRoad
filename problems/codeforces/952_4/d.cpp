@@ -81,7 +81,23 @@ struct ftree{
 };
 
 void sol(){
-    
+  int n, m; cin >> n >> m;
+	int x = n, y = m, size = 0;
+	string temp;
+	rep(i, n) {
+		cin >> temp;
+		int len = 0;
+		rep(j, m) {
+			if(temp[j] == '#') {
+				len++;
+				x = min(i, x);
+				y = min(j, y);
+			}
+		}
+		size = max(size, len);
+	}
+	cout << x + 1 + (size - 1) / 2 << " " << y + 1 + (size - 1) / 2 << '\n';
+	return;
 }
 
 int main(){_

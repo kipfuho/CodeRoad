@@ -1,4 +1,4 @@
-//
+// https://codeforces.com/contest/1984/problem/B
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -81,7 +81,19 @@ struct ftree{
 };
 
 void sol(){
-    
+  string x; cin >> x;
+	if(x[x.size() - 1] == '9' || x[0] > '1') {
+		NO
+		return;
+	}
+	rep(i, 1, x.size() - 1) {
+		if(x[i] == '0') {
+			NO
+			return;
+		}
+	}
+	YES
+	return;
 }
 
 int main(){_

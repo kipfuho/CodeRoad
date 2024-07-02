@@ -81,7 +81,14 @@ struct ftree{
 };
 
 void sol(){
-    
+  int n, k, d; cin >> n >> k >> d;
+	int ti[n], ai[k + 1], bi[k + 1];
+	rep(i, n) cin >> ti[i];
+	rep(i, 1, k + 1) cin >> ai[i];
+	rep(i, 1, k + 1) cin >> bi[i];
+
+	
+	return;
 }
 
 int main(){_

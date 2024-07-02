@@ -81,7 +81,19 @@ struct ftree{
 };
 
 void sol(){
-    
+    string a, b;
+    cin >> a >> b;
+
+    int maxx = 0;
+    for(int i = 0; i < b.size(); i++) {
+        int idx = i;
+        for(int j = 0; j < a.size(); j++) {
+            if(a[j] == b[idx]) idx++;
+        }
+        maxx = max(maxx, idx - i);
+    }
+    cout << a.size() + b.size() - maxx << '\n';
+    return;
 }
 
 int main(){_

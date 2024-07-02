@@ -1,4 +1,4 @@
-//
+// https://codeforces.com/contest/1987/problem/A
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -81,7 +81,9 @@ struct ftree{
 };
 
 void sol(){
-    
+    int n, k; cin >> n >> k;
+		cout << (n-1)*k + 1 << '\n';
+		return;
 }
 
 int main(){_

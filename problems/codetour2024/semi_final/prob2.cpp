@@ -81,15 +81,46 @@ struct ftree{
 };
 
 void sol(){
-    
+    string s; cin >> s;
+    int chr[26] = {0};
+    for(char c : s) chr[c - 'a']++;
+    string half = "";
+    rep(i, 26) {
+        while(chr[i] > 1) {
+            half += string(1, static_cast<char>('a' + i));
+            chr[i] -= 2;
+        }
+    }
+    if(half.size() > 0) {
+        int idx = -1;
+        rep(i, 26) {
+            if(chr[i]) {
+                idx = i;
+                if(i > half[0] - 'a') break;
+            }
+        }
+        rep(i, idx) {
+            if(chr[i]) cout << static_cast<char>('a' + i);
+        }
+        cout << half;
+        if(idx != -1) cout << static_cast<char>('a' + idx);
+        reverse(half.begin(), half.end());
+        cout << half;
+        rep(i, idx + 1, 26) {
+            if(chr[i]) cout << static_cast<char>('a' + i);
+        }
+    }
+    else {
+        rep(i, 26) {
+            rep(j, chr[i]) cout << static_cast<char>('a' + i);
+        }
+    }
+    return;
 }
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
+    sol();
     return 0;
 }

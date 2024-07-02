@@ -80,8 +80,28 @@ struct ftree{
     }
 };
 
+int arr[100000];
+
 void sol(){
-    
+	int n; cin >> n;
+	rep(i, n) cin >> arr[i];
+	priority_queue<int> pq;
+	int curmin = arr[0];
+	rep(i, 1, n) {
+		if(arr[i] < curmin) pq.push(arr[i] - curmin);
+		else curmin = arr[i];
+	}
+	ll len = pq.size(), offset = 0, res = 0;
+	while(!pq.empty()) {
+		int fr = -pq.top();
+		pq.pop();
+		fr -= offset;
+		res += (len + 1)*fr;
+		offset += fr;
+		len--;
+	}
+	cout << res << '\n';
+	return;
 }
 
 int main(){_

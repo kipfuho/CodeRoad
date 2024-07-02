@@ -80,16 +80,48 @@ struct ftree{
     }
 };
 
+
+
 void sol(){
+    int n, m, maxVal = 0; cin >> n >> m;
+    int arr[n], brr[n], crr[m];
+    rep(i, n) {
+        cin >> arr[i];
+        maxVal = max(maxVal, arr[i]);
+    }
+    rep(i, n) cin >> brr[i];
+    rep(i, m) cin >> crr[i];
     
+    int drr[maxVal + 1], err[maxVal + 1];
+    rep(i, maxVal + 1) drr[i] = INT_MAX;
+    memset(err, 0, sizeof(drr));
+
+    rep(i, n) drr[arr[i]] = min(drr[arr[i]], arr[i] - brr[i]);
+    rep(i, 1, maxVal + 1) drr[i] = min(drr[i], drr[i - 1]);
+    rep(i, 1, maxVal + 1) {
+        if(i >= drr[i]) err[i] = 2 + err[i - drr[i]];
+    }
+    //rep(i,maxVal + 1) cout << drr[i] << " \n"[i == maxVal];
+    //rep(i,maxVal + 1) cout << err[i] << " \n"[i == maxVal];
+
+    ll exp = 0;
+    rep(i, m) {
+        int mi = crr[i];
+        // need to find in O(logn)
+        if(mi > maxVal) {
+            int cnt = (mi - maxVal) / drr[maxVal] + 1;
+            exp += 2LL*cnt;
+            mi -= drr[maxVal]*cnt;
+        }
+        exp += err[mi];
+    }
+    cout << exp;
+    return;
 }
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
+    sol();
     return 0;
 }

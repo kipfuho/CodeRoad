@@ -1,4 +1,4 @@
-//
+// https://codeforces.com/contest/1978/problem/A
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,8 +80,16 @@ struct ftree{
     }
 };
 
+int arr[100];
+
 void sol(){
-    
+  int n; cin >> n;
+	rep(i, n) cin >> arr[i];
+	int res = arr[n - 1];
+	int maxx = arr[0];
+	rep(i, 1, n - 1) maxx = max(maxx, arr[i]);
+	cout << res + maxx << '\n';
+	return;
 }
 
 int main(){_

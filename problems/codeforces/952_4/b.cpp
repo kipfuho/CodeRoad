@@ -1,4 +1,4 @@
-//
+// https://codeforces.com/contest/1985/problem/B
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -81,7 +81,17 @@ struct ftree{
 };
 
 void sol(){
-    
+  int n; cin >> n;
+	int curmax = 0, res = 0;
+	rep(i, 2, n + 1) {
+		int num = n / i, sum = max(res, num*(num + 1)*i / 2);
+		if(sum > curmax) {
+			curmax = sum;
+			res = i;
+		}
+	}
+	cout << res << '\n';
+	return;
 }
 
 int main(){_

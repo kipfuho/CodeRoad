@@ -81,7 +81,10 @@ struct ftree{
 };
 
 void sol(){
-    
+  string a, b; cin >> a >> b;
+	swap(a[0], b[0]);
+	cout << a << " " << b << '\n';
+	return;
 }
 
 int main(){_

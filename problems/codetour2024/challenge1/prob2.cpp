@@ -81,15 +81,16 @@ struct ftree{
 };
 
 void sol(){
-    
+  int n, k; cin >> n >> k;
+
+	int a = (n - 1)/k + 1;
+	cout << a*(a + 1) / 2;
+	return;
 }
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
+    sol();
     return 0;
 }

@@ -80,8 +80,58 @@ struct ftree{
     }
 };
 
+int arr[5000], counter[5001], order[5001];
+vector<pii> prep;
+
 void sol(){
-    
+	memset(counter, 0, sizeof(counter));
+	memset(order, 0, sizeof(order));
+  int n; cin >> n;
+	rep(i, n) cin >> arr[i];
+	rep(i, n) counter[arr[i]]++;
+
+	sort(arr, arr + n), prep.clear();;
+	int cur = 0, cnt = 1, idx = 0;
+	rep(i, 1, n) {
+		if(arr[i] == arr[cur]) cnt++;
+		else {
+			order[arr[cur]] = idx++;
+			prep.push_back({cnt, arr[cur]});
+			cur = i, cnt = 1;
+		}
+	}
+	order[arr[cur]] = idx++;
+	prep.push_back({cnt, arr[cur]});
+	sort(prep.begin(), prep.end());
+	//for(auto x:prep) cout << x.first << ":" << x.second << " ";
+
+	int len = prep.size(), x = 0;
+	cur = 0;
+	rep(i, n) {
+		if(arr[i] > cur && counter[arr[i]] > 0) {
+			x++;
+			cur = arr[i];
+			counter[arr[i]]--;
+            cout << cur << ":   ";
+
+			rep(j, len) {
+				if(prep[j].second > cur && prep[j].first > 0 && prep[j].first <= order[prep[j].second] - order[cur]) {
+					counter[prep[j].second]--;
+					prep[j].first--;
+                    cout << prep[j].second << " ";
+
+					if(prep[j].first == 0) {
+						rep(k, prep[j].second + 1, n + 1) {
+							if(order[k]) order[k]--;
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	cout << x << '\n';
 }
 
 int main(){_

@@ -81,15 +81,39 @@ struct ftree{
 };
 
 void sol(){
-    
+    int n; cin >> n;
+    int arr[3]= {0}, brr[3] = {0};
+    rep(i, n) {
+        char c; cin >> c;
+        if(c == 'R') arr[0]++;
+        else if(c == 'S') arr[1]++;
+        else if(c == 'P') arr[2]++;
+    }
+
+    rep(i, n) {
+        char c; cin >> c;
+        if(c == 'R') brr[0]++;
+        else if(c == 'S') brr[1]++;
+        else if(c == 'P') brr[2]++;
+    }
+
+    int w1 = min(arr[0], brr[1]), w2 = min(arr[1], brr[2]), w3 = min(arr[2], brr[0]);
+    arr[0] -= w1, brr[1] -= w1;
+    arr[1] -= w2, brr[2] -= w2;
+    arr[2] -= w3, brr[0] -= w3;
+    arr[0] -= min(arr[0], brr[0]);
+    arr[1] -= min(arr[1], brr[1]);
+    arr[2] -= min(arr[2], brr[2]);
+    //cout << w1 << " " << w2 << " " << w3 << '\n';
+    //cout << arr[0] << " " << arr[1] << " " << arr[2] << '\n';
+    //cout << brr[0] << " " << brr[1] << " " << brr[2] << '\n';
+    cout << w1 + w2 + w3 - arr[0] - arr[1] - arr[2];
+    return;
 }
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
+    sol();
     return 0;
 }

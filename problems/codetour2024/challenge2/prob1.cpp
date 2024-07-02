@@ -80,16 +80,43 @@ struct ftree{
     }
 };
 
+inline ll findV(vector<pll> &a, int x) {
+	ll l = 0, r = a.size() - 1, mid, res = 0;
+	while(l <= r) {
+		mid = (l + r) / 2;
+		if(a[mid].first <= x) {
+			l = mid + 1;
+			res = a[mid].second;
+		}
+		else {
+			r = mid - 1;
+		}
+	}
+	return res;
+}
+
 void sol(){
-    
+	ll n, q; cin >> n >> q;
+	vector<pll> arr(n);
+	rep(i, n) {
+		ll a, b; cin >> a >> b;
+		arr[i] = {b, a};
+	}
+	sort(arr.begin(), arr.end());
+	rep(i, 1, n) {
+		arr[i].second += arr[i - 1].second;
+	}
+	rep(i, q) {
+		ll c; cin >> c;
+		cout << findV(arr, c) << '\n';
+	}
+	//rep(i, n) cout << arr[i].first << "-" << arr[i].second << " ";
+	return;
 }
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
+    sol();
     return 0;
 }

@@ -80,8 +80,11 @@ struct ftree{
     }
 };
 
+ll mod = 1e9 + 7;
+
 void sol(){
-    
+  ll l, r, k; cin >> l >> r >> k;
+
 }
 
 int main(){_

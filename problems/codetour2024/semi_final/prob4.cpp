@@ -80,8 +80,64 @@ struct ftree{
     }
 };
 
+int s, f;
+map<int, bool> mp;
+
+inline int addcase(queue<pii> &q, int s, int cnt, bool isa) {
+    vector<int> nums;
+    int temp = s, op = 0;
+    while(temp > 0) {
+        nums.push_back(temp%10);
+        temp /= 10;
+    }
+    do {
+        int s0 = 0, len = nums.size();
+        rep(i, len) s0 = s0*10 + nums[i];
+        if(s0 != s) {
+            if(isa) {
+                if(s0 == f) return cnt + 1;
+                addcase(q, s0, cnt, false);
+            }
+            else if(!mp[s0] && s0 != f) {
+                q.push({s0, cnt + 1});
+                mp[s0] = 1;
+                op++;
+            }
+        }
+    } while(next_permutation(nums.begin(), nums.end()));
+
+    if(s < 9999) {
+        if(isa) {
+            if(s + 1 == f) return cnt + 1;
+            addcase(q, s + 1, cnt, false);
+        }
+        else if(!mp[s + 1] && s + 1 != f) {
+            q.push({s + 1, cnt + 1});
+            mp[s + 1] = 1;
+            op++;
+        }
+    }
+    if(!isa && op == 0) return cnt + 1;
+    return false;
+}
+
 void sol(){
-    
+    cin >> s >> f;
+    mp.clear();
+    queue<pii> q;
+    q.push({s, 0});
+    mp[s] = 1;
+    while(!q.empty()) {
+        pii cur = q.front();
+        q.pop();
+        int trynext = addcase(q, cur.first, cur.second, true);
+        if(trynext) {
+            cout << trynext << '\n';
+            return;
+        }
+    }
+    cout << "-1\n";
+    return;
 }
 
 int main(){_

@@ -1,4 +1,4 @@
-//
+// https://codeforces.com/contest/1984/problem/0
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,8 +80,31 @@ struct ftree{
     }
 };
 
+int arr[50];
+
+bool check(int n) {
+	int a = arr[0];
+	rep(i, 1, n) if(arr[i] != a) return true;
+	return false;
+}
+
 void sol(){
-    
+	int n; cin >> n;
+	rep(i, n) cin >> arr[i];
+	if(check(n)) {
+		YES
+		bool red = false;
+		rep(i, n) {
+			if(red) cout << 'R';
+			else {
+				cout << 'B';
+				if((arr[i] - arr[0]) != (arr[n - 1] - arr[i + 1])) red = true;
+			}
+		}
+		cout << '\n';
+	}
+	else NO
+	return;
 }
 
 int main(){_

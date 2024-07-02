@@ -80,8 +80,34 @@ struct ftree{
     }
 };
 
+ll arr[200000], crr[200000];
+
+bool check(ll mid, ll h, ll n) {
+	ll sum = 0;
+	rep(i, n) {
+		sum += arr[i] * (mid / crr[i] + 1);
+        if(sum >= h) return true;
+	}
+	return false;
+}
+
 void sol(){
-    
+  ll h, n; cin >> h >> n;
+	rep(i, n) cin >> arr[i];
+	rep(i, n) cin >> crr[i];
+	ll l = 0, r = 4e10, mid, res;
+	while(l <= r) {
+		mid = (l + r) / 2;
+		if(check(mid, h, n)) {
+			r = mid - 1;
+			res = mid;
+		}
+		else {
+			l = mid + 1;
+		}
+	}
+	cout << res + 1 << '\n';
+	return;
 }
 
 int main(){_

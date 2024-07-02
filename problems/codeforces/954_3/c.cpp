@@ -80,8 +80,23 @@ struct ftree{
     }
 };
 
+int arr[100000];
+
 void sol(){
-    
+  int n, m; cin >> n >> m;
+	string s, c; cin >> s;
+	rep(i, m) cin >> arr[i];
+	cin >> c;
+	sort(arr, arr + m);
+	sort(c.begin(), c.end());
+	int idx = 0, prev = -1;
+	rep(i, m) {
+		if(arr[i] == prev) continue;
+		prev = arr[i];
+		s[arr[i] - 1] = c[idx++];
+	}
+	cout << s << '\n';
+	return;
 }
 
 int main(){_

@@ -80,8 +80,32 @@ struct ftree{
     }
 };
 
+ll arr[200000];
+
 void sol(){
-    
+  int n; cin >> n;
+	map<ll, bool> mp;
+	ll mul = 1;
+	rep(i, n) {
+		cin >> arr[i];
+		if(!mp[arr[i]]) {
+			mp[arr[i]] = true;
+			mul *= arr[i];
+		}
+	}
+
+	int sum = 0;
+	rep(i, n) {
+		arr[i] = mul / arr[i];
+		sum += arr[i];
+	}
+
+	if(sum >= mul) cout << "-1\n";
+	else {
+		rep(i, n) cout << arr[i] << " \n"[i == n - 1];
+	}
+	
+	return;
 }
 
 int main(){_

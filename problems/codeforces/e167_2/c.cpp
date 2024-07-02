@@ -80,8 +80,57 @@ struct ftree{
     }
 };
 
+int mv1[200000], mv2[200000];
+
 void sol(){
+    int n; cin >> n;
+    rep(i, n) cin >> mv1[i];
+    rep(i, n) cin >> mv2[i];
+
+    int r1 = 0, r2 = 0;
+    vector<int> gr(2, 0);
+    rep(i, n) {
+        if(mv1[i] == -1 && mv2[i] == -1) {
+            gr[0]++;
+        }
+        else if(mv1[i] == 1 && mv2[i] == 1) {
+            gr[1]++;
+        }
+        else if(mv1[i] == 1) {
+            r1++;
+        }
+        else if(mv2[i] == 1) {
+            r2++;
+        }
+    }
     
+    if(gr[0] > 0) {
+        int dif = abs(r1 - r2);
+        if(gr[0] > dif) {
+            dif = gr[0] - dif;
+            int newval = min(r1, r2) - dif/2;
+            r1 = r2 = newval;
+            if(dif&1) r1--;
+        }
+        else {
+            if(r1 > r2) r1 -= gr[0];
+            else r2 -= gr[0];
+        }
+    }
+    if(gr[1] > 0) {
+        int dif = abs(r1 - r2);
+        if(gr[1] > dif) {
+            dif = (gr[1] - dif)/2;
+            int newval = max(r1, r2) + dif;
+            r1 = r2 = newval;
+        }
+        else {
+            if(r1 > r2) r2 += gr[1];
+            else r1 += gr[1];
+        }
+    }
+    cout << min(r1, r2) << '\n';
+    return;
 }
 
 int main(){_

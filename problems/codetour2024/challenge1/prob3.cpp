@@ -1,4 +1,4 @@
-//
+// Xep hang
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,16 +80,39 @@ struct ftree{
     }
 };
 
+int arr[1000000], brr[1000000];
+
 void sol(){
-    
+  int n, q, temp; cin >> n >> q;
+	rep(i, n + q) {
+		cin >> temp;
+		arr[i] = brr[i] = temp;
+	}
+	
+	// preprocess
+	sort(brr, brr + n + q);
+	unordered_map<int, int, custom_hash> mp;
+	int idx = 1;
+	rep(i, n + q) {
+		if(mp[brr[i]]) continue;
+		else mp[brr[i]] = idx++;
+	}
+	
+	ftree f = ftree(idx);
+	rep(i, n) {
+		f.update(mp[arr[i]], 1);
+	}
+	rep(i, n, n + q) {
+		int num = mp[arr[i]];
+		f.update(num, 1);
+		cout << f.get_sum(0, num + 1) << '\n';
+	}
+	return;
 }
 
 int main(){_
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
-    int t; cin >> t;
-    while(t--){
-        sol();
-    }
+    sol();
     return 0;
 }

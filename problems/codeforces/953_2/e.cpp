@@ -80,8 +80,64 @@ struct ftree{
     }
 };
 
+int prefixSum[200001];
+
+inline pii getPos(int i, int n, string &s, string &t) {
+    if(s[i] == '1') return {i, i};
+    int l = -1, r = -1;
+    if(i > 0 && t[i - 1] == '1') {
+        l = i - 1;
+    }
+    else if(i > 1 && s[i - 2] == '0') {
+        l = i - 2;
+    }
+
+    if(i < n - 1 && t[i + 1] == '1') {
+        r = i + 1;
+    }
+    else if(i < n - 2 && s[i + 2] == '0') {
+        r = i + 2;
+    }
+
+    if(r == -1) l = -1;
+    if(l == -1) r = -1;
+    return {l, r};
+}
+
 void sol(){
-    
+    int n; cin >> n;
+    string s, t; cin >> s >> t;
+    prefixSum[0] = 0;
+    rep(i, 1, n + 1) {
+        pii pos = getPos(i - 1, n, s, t);
+        prefixSum[i] = prefixSum[i - 1] + (pos.first != -1);
+    }
+
+    //rep(i, 1, n + 1) cout << prefixSum[i] << " \n"[i == n];
+
+    int q; cin >> q;
+    while(q--) {
+        int l, r, cnt; cin >> l >> r;
+        if(r - l < 5) {
+            cnt = 0;
+            rep(i, l, r + 1) {
+                if(s[i - 1] == '1') cnt++;
+                else {
+                    pii pos = getPos(i - 1, n, s, t);
+                    if(pos.first >= l - 1 && pos.second < r) cnt++;
+                }
+            }
+        }
+        else {
+            cnt = prefixSum[r] - prefixSum[l - 1];
+            for(int i : {l - 1, l, r - 2, r - 1}) {
+                if(s[i] == '1') continue;
+                pii pos = getPos(i, n, s, t);
+                if(pos.first != -1 && (pos.first < l - 1 || pos.second >= r)) cnt--;
+            }
+        }
+        cout << cnt << '\n';
+    }
 }
 
 int main(){_
