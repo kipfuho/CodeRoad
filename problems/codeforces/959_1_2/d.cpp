@@ -1,4 +1,4 @@
-// https://codeforces.com/contest/1987/problem/D
+//
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -13,11 +13,14 @@
 #define pii pair<int, int>
 #define pll pair<ll, ll>
 #define pb push_back
+#define eb emplace_back
 #define YES cout << "YES\n";
 #define NO cout << "NO\n";
 #define Yes cout << "Yes\n";
 #define No cout << "No\n";
 #define bit(x) (x & (-x))
+#define ff first
+#define ss second
 using namespace std;
 
 // safe hash function for unordered_map and gp_hash_table
@@ -80,39 +83,35 @@ struct ftree{
     }
 };
 
-void sol() {
+void sol(){
     int n; cin >> n;
-	map<int, int> counter;
-    rep(i, n) {
-        int temp; cin >> temp;
-        counter[temp]++;
+    vector<int> num(n), pos(n);
+    rep(i, n) cin >> num[i];
+
+    // current available position
+    iota(pos.begin(), pos.end(), 0);
+    vector<pii> ans;
+
+    // start from revesal, priority bigger divider first
+    for(int i = n - 1; i > 0; i--) {
+        // pigeon hole
+        vector<int> hole(i, -1);
+        for(auto idx : pos) {
+            // if there's already one position that match, add new edge and remove any of 2 vertex from pos
+            if(hole[num[idx] % i] != -1) {
+                ans.eb(idx, hole[num[idx] % i]);
+                pos.erase(find(pos.begin(), pos.end(), idx));
+                break;
+            }
+            // save the current vertex to pigeon hole
+            hole[num[idx] % i] = idx;
+        }
     }
 
-    priority_queue<int> pq; // save turns needed to remove cakes of same tastiness
-                            // i.e. the cakes bob managed to eat
-    int freeTurn = 0, ans = 0;
-    for(auto &[k, v] : counter) {
-        // remove cakes if bob can
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        // substitute the worse removal out
-        if(!pq.empty() && pq.top() > v) {
-            freeTurn += pq.top() + 1; // 1 is offset for the turn skip when bob eat cakes
-            pq.pop();
-            ans++;
-        }
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        ans++;
-        freeTurn++;
-    }
-    cout << ans << '\n';
+    cout << "YES\n";
+    // reverse the answer
+    reverse(ans.begin(), ans.end());
+    for(pii p : ans) cout << p.ff + 1 << ' ' << p.ss + 1 << '\n';
     return;
 }
 

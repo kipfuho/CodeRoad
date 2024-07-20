@@ -1,4 +1,4 @@
-// https://codeforces.com/contest/1987/problem/D
+//
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -13,11 +13,14 @@
 #define pii pair<int, int>
 #define pll pair<ll, ll>
 #define pb push_back
+#define eb emplace_back
 #define YES cout << "YES\n";
 #define NO cout << "NO\n";
 #define Yes cout << "Yes\n";
 #define No cout << "No\n";
 #define bit(x) (x & (-x))
+#define ff first
+#define ss second
 using namespace std;
 
 // safe hash function for unordered_map and gp_hash_table
@@ -80,39 +83,24 @@ struct ftree{
     }
 };
 
-void sol() {
+void sol(){
     int n; cin >> n;
-	map<int, int> counter;
+    ll sum = 0;
+    vector<int> arr(n), dp(n);
+    map<int, int> mp;
+    rep(i, n) cin >> arr[i];
+    int curmax = 0;
     rep(i, n) {
-        int temp; cin >> temp;
-        counter[temp]++;
+        if(mp[arr[i]]) curmax = max(curmax, arr[i]);
+        mp[arr[i]]++;
+        dp[i] = curmax;
+        sum += arr[i];
     }
-
-    priority_queue<int> pq; // save turns needed to remove cakes of same tastiness
-                            // i.e. the cakes bob managed to eat
-    int freeTurn = 0, ans = 0;
-    for(auto &[k, v] : counter) {
-        // remove cakes if bob can
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        // substitute the worse removal out
-        if(!pq.empty() && pq.top() > v) {
-            freeTurn += pq.top() + 1; // 1 is offset for the turn skip when bob eat cakes
-            pq.pop();
-            ans++;
-        }
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        ans++;
-        freeTurn++;
+    for(int i = n - 1; i >= 0; i--) {
+        int idx = lower_bound(dp.begin(), dp.end(), dp[i]) - dp.begin();
+        sum += (i - idx + 1)*dp[i];
     }
-    cout << ans << '\n';
+    cout << sum << '\n';
     return;
 }
 

@@ -13,11 +13,14 @@
 #define pii pair<int, int>
 #define pll pair<ll, ll>
 #define pb push_back
+#define eb emplace_back
 #define YES cout << "YES\n";
 #define NO cout << "NO\n";
 #define Yes cout << "Yes\n";
 #define No cout << "No\n";
 #define bit(x) (x & (-x))
+#define ff first
+#define ss second
 using namespace std;
 
 // safe hash function for unordered_map and gp_hash_table

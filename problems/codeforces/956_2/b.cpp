@@ -1,4 +1,4 @@
-// https://codeforces.com/contest/1987/problem/D
+//
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,39 +80,49 @@ struct ftree{
     }
 };
 
-void sol() {
-    int n; cin >> n;
-	map<int, int> counter;
-    rep(i, n) {
-        int temp; cin >> temp;
-        counter[temp]++;
-    }
+int mat1[500][500], mat2[500][500];
 
-    priority_queue<int> pq; // save turns needed to remove cakes of same tastiness
-                            // i.e. the cakes bob managed to eat
-    int freeTurn = 0, ans = 0;
-    for(auto &[k, v] : counter) {
-        // remove cakes if bob can
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        // substitute the worse removal out
-        if(!pq.empty() && pq.top() > v) {
-            freeTurn += pq.top() + 1; // 1 is offset for the turn skip when bob eat cakes
-            pq.pop();
-            ans++;
-        }
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        ans++;
-        freeTurn++;
+void sol(){
+    int n, m; cin >> n >> m;
+    rep(i, n) {
+        string temp; cin >> temp;
+        rep(j, m) mat1[i][j] = temp[j] - '0';
     }
-    cout << ans << '\n';
+    rep(i, n) {
+        string temp; cin >> temp;
+        rep(j, m) {
+            mat2[i][j] = temp[j] - '0';
+        }
+    }
+    int sum1 = 0, sum2 = 0;
+    vector<int> row1(n), row2(n), col1(m), col2(m);
+    rep(i, n) rep(j, m) {
+        sum1 += mat1[i][j];
+        row1[i] += mat1[i][j];
+        col1[j] += mat1[i][j];
+    }
+    rep(i, n) rep(j, m) {
+        sum2 += mat2[i][j];
+        row2[i] += mat2[i][j];
+        col2[j] += mat2[i][j];
+    }
+    for(int &num : row1) num%=3;
+    for(int &num : col1) num%=3;
+    for(int &num : row2) num%=3;
+    for(int &num : col2) num%=3;
+    if(abs(sum1 - sum2)%3 != 0) {
+        No
+        return;
+    }
+    rep(i, n) if(row1[i] != row2[i]) {
+        No
+        return;
+    }
+    rep(i, m) if(col1[i] != col2[i]) {
+        No
+        return;
+    }
+    Yes;
     return;
 }
 

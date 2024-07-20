@@ -1,0 +1,1 @@
+{"name":"Local: a","url":"c:\\Users\\Biu\\SourceCode\\CodeRoad\\problems\\codeforces\\958_2\\a.cpp","tests":[{"id":1721054363404,"input":"4\n1 5\n5 2\n6 3\n16 4\n","output":"0\n4\n3\n5\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Biu\\SourceCode\\CodeRoad\\problems\\codeforces\\958_2\\a.cpp","group":"local","local":true}

@@ -1,4 +1,4 @@
-// https://codeforces.com/contest/1987/problem/D
+//
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,39 +80,38 @@ struct ftree{
     }
 };
 
-void sol() {
-    int n; cin >> n;
-	map<int, int> counter;
-    rep(i, n) {
-        int temp; cin >> temp;
-        counter[temp]++;
-    }
+pii dir[8] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
 
-    priority_queue<int> pq; // save turns needed to remove cakes of same tastiness
-                            // i.e. the cakes bob managed to eat
-    int freeTurn = 0, ans = 0;
-    for(auto &[k, v] : counter) {
-        // remove cakes if bob can
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        // substitute the worse removal out
-        if(!pq.empty() && pq.top() > v) {
-            freeTurn += pq.top() + 1; // 1 is offset for the turn skip when bob eat cakes
-            pq.pop();
-            ans++;
-        }
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        ans++;
-        freeTurn++;
+void sol(){
+    int n, m; cin >> n >> m;
+    int mat[n][m], clone[n][m];
+    rep(i, n) rep(j, m) cin >> mat[i][j];
+
+    if(n*m == 1) {
+        cout << "-1\n";
+        return;
     }
-    cout << ans << '\n';
+    
+    int l = 1, r = n*m;
+    rep(i, n) {
+        rep(j, m) {
+            if(mat[i][j] == l && mat[i][j] == r) {
+                clone[i][j] = clone[0][0];
+                clone[0][0] = l;
+                break;
+            }
+            if(mat[i][j] == l) {
+                clone[i][j] = r--;
+            }
+            else {
+                clone[i][j] = l++;
+            }
+        }
+    }
+    rep(i, n) {
+        rep(j, m) cout << clone[i][j] << " ";
+        cout << '\n';
+    }
     return;
 }
 

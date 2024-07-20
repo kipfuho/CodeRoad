@@ -1,4 +1,4 @@
-// https://codeforces.com/contest/1987/problem/D
+//
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,39 +80,60 @@ struct ftree{
     }
 };
 
-void sol() {
-    int n; cin >> n;
-	map<int, int> counter;
-    rep(i, n) {
-        int temp; cin >> temp;
-        counter[temp]++;
-    }
+int arr[200000], brr[200000];
 
-    priority_queue<int> pq; // save turns needed to remove cakes of same tastiness
-                            // i.e. the cakes bob managed to eat
-    int freeTurn = 0, ans = 0;
-    for(auto &[k, v] : counter) {
-        // remove cakes if bob can
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        // substitute the worse removal out
-        if(!pq.empty() && pq.top() > v) {
-            freeTurn += pq.top() + 1; // 1 is offset for the turn skip when bob eat cakes
-            pq.pop();
-            ans++;
-        }
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        ans++;
-        freeTurn++;
+inline bool compareArray(int n) {
+    map<int, int> mp;
+    rep(i, n) mp[arr[i]] = 1;
+    rep(i, n) {
+        if(!mp[brr[i]]) return true;
     }
-    cout << ans << '\n';
+    return false;
+}
+
+inline void changeArray(int n) {
+    vector<int> clone1(n), clone2(n);
+    rep(i, n) clone1[i] = arr[i];
+    rep(i, n) clone2[i] = brr[i];
+    sort(clone1.begin(), clone1.end());
+    sort(clone2.begin(), clone2.end());
+    map<int, int> mp;
+    int idx = 0;
+    for(int num:clone1) mp[num] = ++idx;
+    rep(i, n) arr[i] = mp[arr[i]];
+    mp.clear(), idx = 0;
+    for(int num:clone2) mp[num] = ++idx;
+    rep(i, n) brr[i] = mp[brr[i]];
+    return;
+}
+
+void sol(){
+    int n; cin >> n;
+    rep(i, n) cin >> arr[i];
+    rep(i, n) cin >> brr[i];
+    
+    if(compareArray(n)) {
+        NO
+        return;
+    }
+    changeArray(n);
+    ftree f1(n), f2(n);
+    int inv1 = 0, inv2 = 0;
+    rep(i, n) {
+        f1.update(arr[i], 1);
+        inv1 += f1.get_sum(1, arr[i]);
+    }
+    rep(i, n) {
+        f2.update(brr[i], 1);
+        inv1 += f2.get_sum(1, brr[i]);
+    }
+    //cout << inv1 << " " << inv2;
+    inv1 %= 2, inv2 %= 2;
+    if(inv1 != inv2) {
+        NO
+        return;
+    }
+    YES
     return;
 }
 

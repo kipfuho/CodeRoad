@@ -1,4 +1,4 @@
-// https://codeforces.com/contest/1987/problem/D
+//
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,39 +80,35 @@ struct ftree{
     }
 };
 
-void sol() {
-    int n; cin >> n;
-	map<int, int> counter;
-    rep(i, n) {
-        int temp; cin >> temp;
-        counter[temp]++;
+void sol(){
+    ll n; cin >> n;
+    queue<ll> q;
+    stack<ll> st;
+    ll temp = n;
+    while(temp > 0) {
+        if(temp&1) q.push(1);
+        else q.push(0);
+        temp /= 2;
     }
-
-    priority_queue<int> pq; // save turns needed to remove cakes of same tastiness
-                            // i.e. the cakes bob managed to eat
-    int freeTurn = 0, ans = 0;
-    for(auto &[k, v] : counter) {
-        // remove cakes if bob can
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
+    ll index = 0, pre = 0;
+    temp = n;
+    st.push(temp);
+    while(!q.empty()) {
+        ll fr = q.front();
+        q.pop();
+        if(fr) {
+            temp -= (1LL<<index);
+            if(temp + pre) st.push(temp + pre);
+            pre += (1LL<<index);
         }
-        // substitute the worse removal out
-        if(!pq.empty() && pq.top() > v) {
-            freeTurn += pq.top() + 1; // 1 is offset for the turn skip when bob eat cakes
-            pq.pop();
-            ans++;
-        }
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        ans++;
-        freeTurn++;
+        index++;
     }
-    cout << ans << '\n';
+    cout << st.size() << '\n';
+    while(!st.empty()) {
+        cout << st.top() << " ";
+        st.pop();
+    }
+    cout << '\n';
     return;
 }
 

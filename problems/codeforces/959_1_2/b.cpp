@@ -1,4 +1,4 @@
-// https://codeforces.com/contest/1987/problem/D
+//
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,39 +80,24 @@ struct ftree{
     }
 };
 
-void sol() {
+void sol(){
     int n; cin >> n;
-	map<int, int> counter;
-    rep(i, n) {
-        int temp; cin >> temp;
-        counter[temp]++;
+    string s, t; cin >> s >> t;
+    int dp[n]; dp[0] = (s[0] == '1' ? 0 : -1);
+    rep(i, 1, n) {
+        if(s[i] == '1') dp[i] = i;
+        else dp[i] = dp[i - 1];
     }
-
-    priority_queue<int> pq; // save turns needed to remove cakes of same tastiness
-                            // i.e. the cakes bob managed to eat
-    int freeTurn = 0, ans = 0;
-    for(auto &[k, v] : counter) {
-        // remove cakes if bob can
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        // substitute the worse removal out
-        if(!pq.empty() && pq.top() > v) {
-            freeTurn += pq.top() + 1; // 1 is offset for the turn skip when bob eat cakes
-            pq.pop();
-            ans++;
-        }
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        ans++;
-        freeTurn++;
+    bool ok = true;
+    for(int i = n - 1; i >= 0; i--) {
+        if(t[i] == '0') continue;
+        if(s[i] != t[i] && dp[i] == -1) {
+            ok = false;
+            break;
+        } 
     }
-    cout << ans << '\n';
+    if(ok) cout << "YES\n";
+    else cout << "NO\n";
     return;
 }
 

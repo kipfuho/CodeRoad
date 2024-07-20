@@ -1,4 +1,4 @@
-// https://codeforces.com/contest/1987/problem/D
+//
 
 #include<bits/stdc++.h>
 #define _ ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -80,39 +80,17 @@ struct ftree{
     }
 };
 
-void sol() {
-    int n; cin >> n;
-	map<int, int> counter;
-    rep(i, n) {
-        int temp; cin >> temp;
-        counter[temp]++;
-    }
+void sol(){
+    ll n, x, res = 0; cin >> n >> x;
+    vector<ll> num(n + 1), dp(n + 2);
+    rep(i, 1, n + 1) cin >> num[i];
+    partial_sum(num.begin() + 1, num.end(), num.begin() + 1);
 
-    priority_queue<int> pq; // save turns needed to remove cakes of same tastiness
-                            // i.e. the cakes bob managed to eat
-    int freeTurn = 0, ans = 0;
-    for(auto &[k, v] : counter) {
-        // remove cakes if bob can
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        // substitute the worse removal out
-        if(!pq.empty() && pq.top() > v) {
-            freeTurn += pq.top() + 1; // 1 is offset for the turn skip when bob eat cakes
-            pq.pop();
-            ans++;
-        }
-        if(freeTurn >= v) {
-            freeTurn -= v;
-            pq.push(v);
-            continue;
-        }
-        ans++;
-        freeTurn++;
+    for(int i = n - 1; i >= 0; i--) {
+        int pos = upper_bound(num.begin() + i, num.end(), num[i] + x) - num.begin();
+        dp[i] = dp[pos] + pos - i - 1;
     }
-    cout << ans << '\n';
+    cout << accumulate(dp.begin(), dp.end(), 0LL) << '\n';
     return;
 }
 
